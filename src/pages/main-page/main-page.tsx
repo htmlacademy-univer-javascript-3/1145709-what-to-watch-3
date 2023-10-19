@@ -1,4 +1,4 @@
-import Article from '../../components/Article/Article';
+import Article from '../../components/article/article.tsx';
 
 interface MainScreenProps {
   promoFilmName: string;
