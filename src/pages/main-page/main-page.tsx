@@ -1,13 +1,17 @@
-import Article from '../../components/article/article.tsx';
+import {Films} from '../../types/film';
+import {FilmList} from '../../components/film-list/film-list';
+import {Footer} from '../../components/footer/footer';
+import {Header} from '../../components/header/header';
 
 interface MainScreenProps {
   promoFilmName: string;
   promoFilmGenre: string;
   promoFilmReleaseDate: Date;
+  films: Films;
 }
 
 function MainPage(props: MainScreenProps): JSX.Element {
-  const {promoFilmName, promoFilmGenre, promoFilmReleaseDate} = props;
+  const {promoFilmName, promoFilmGenre, promoFilmReleaseDate, films} = props;
 
   return (
     <>
@@ -18,26 +22,7 @@ function MainPage(props: MainScreenProps): JSX.Element {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header film-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
-        </header>
+        <Header/>
 
         <div className="film-card__wrap">
           <div className="film-card__info">
@@ -75,83 +60,9 @@ function MainPage(props: MainScreenProps): JSX.Element {
       </section>
 
       <div className="page-content">
-        <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
+        <FilmList films={films}/>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
-
-          <div className="catalog__films-list">
-            <Article imageSrc={'img/fantastic-beasts-the-crimes-of-grindelwald.jpg'} linkText={'Fantastic Beasts: The Crimes of Grindelwald'}/>
-            <Article imageSrc={'img/bohemian-rhapsody.jpg'} linkText={'Bohemian Rhapsody'}/>
-            <Article imageSrc={'img/macbeth.jpg'} linkText={'Macbeth'}/>
-            <Article imageSrc={'img/aviator.jpg'} linkText={'Aviator'}/>
-            <Article imageSrc={'img/we-need-to-talk-about-kevin.jpg'} linkText={'We need to talk about Kevin'}/>
-            <Article imageSrc={'img/what-we-do-in-the-shadows.jpg'} linkText={'What We Do in the Shadows'}/>
-            <Article imageSrc={'img/revenant.jpg'} linkText={'Revenant'}/>
-            <Article imageSrc={'img/johnny-english.jpg'} linkText={'Johnny English'}/>
-            <Article imageSrc={'img/shutter-island.jpg'} linkText={'Shutter Island'}/>
-            <Article imageSrc={'img/pulp-fiction.jpg'} linkText={'Pulp Fiction'}/>
-            <Article imageSrc={'img/no-country-for-old-men.jpg'} linkText={'No Country for Old Men'}/>
-            <Article imageSrc={'img/snatch.jpg'} linkText={'Snatch'}/>
-            <Article imageSrc={'img/moonrise-kingdom.jpg'} linkText={'Moonrise Kingdom'}/>
-            <Article imageSrc={'img/seven-years-in-tibet.jpg'} linkText={'Seven Years in Tibet'}/>
-            <Article imageSrc={'img/midnight-special.jpg'} linkText={'Midnight Special'}/>
-            <Article imageSrc={'img/war-of-the-worlds.jpg'} linkText={'War of the Worlds'}/>
-            <Article imageSrc={'img/dardjeeling-limited.jpg'} linkText={'Dardjeeling Limited'}/>
-            <Article imageSrc={'img/orlando.jpg'} linkText={'Orlando'}/>
-            <Article imageSrc={'img/mindhunter.jpg'} linkText={'Mindhunter'}/>
-            <Article imageSrc={'img/midnight-special.jpg'} linkText={'Midnight Special'}/>
-          </div>
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
-        </section>
-
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer/>
       </div>
     </>
   );

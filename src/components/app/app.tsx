@@ -8,13 +8,21 @@ import AddReviewPage from '../../pages/add-review-page/add-review-page.tsx';
 import PlayerPage from '../../pages/player-page/player-page.tsx';
 import {PrivateRoute} from '../private-route/private-route.tsx';
 import {AppRoute, AuthorizationStatus} from '../../const.ts';
+import {Films} from '../../types/film';
 
-function App(): JSX.Element {
+interface AppProps {
+  films: Films;
+}
+
+function App(props: AppProps): JSX.Element {
+  const { films } = props;
+
   return (
     <Routes>
       <Route path={AppRoute.Root}>
         <Route index element={
           <MainPage promoFilmGenre={'Drama'}
+            films={films}
             promoFilmName={'The Grand Budapest Hotel'}
             promoFilmReleaseDate={new Date(2014, 0)}
           />
@@ -22,16 +30,16 @@ function App(): JSX.Element {
         />
         <Route path={AppRoute.SignIn} element={<SignInPage />} />
         <Route path={AppRoute.MyList} element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-            <MyListPage />
+          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <MyListPage films={films} />
           </PrivateRoute>
         }
         />
         <Route path={`${AppRoute.Films}/:id/`} >
-          <Route index element={<FilmPage />} />
-          <Route path={AppRoute.Reviews} element={<AddReviewPage />} />
+          <Route index element={<FilmPage films={films} />} />
+          <Route path={AppRoute.Reviews} element={<AddReviewPage films={films}/>} />
         </Route>
-        <Route index path={`${AppRoute.Player}/:id/`} element={<PlayerPage />} />
+        <Route index path={`${AppRoute.Player}/:id/`} element={<PlayerPage films={films} />} />
       </Route>
       <Route path='*' element={<Page404 />} />
     </Routes>

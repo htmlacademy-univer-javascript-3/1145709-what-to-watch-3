@@ -1,7 +1,22 @@
-function PlayerPage(): JSX.Element {
+import {Films} from '../../types/film';
+import {Navigate} from 'react-router-dom';
+import {AppRoute} from '../../const';
+import {useFilm} from '../../hooks/use-film';
+
+interface PlayerPageProps {
+  films: Films;
+}
+
+function PlayerPage(props: PlayerPageProps): JSX.Element {
+  const film = useFilm(props.films);
+
+  if (film === undefined) {
+    return <Navigate to={AppRoute.NotFound}/>;
+  }
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={film.videoSrc} className="player__video" autoPlay ></video>
 
       <button type="button" className="player__exit">Exit</button>
 
