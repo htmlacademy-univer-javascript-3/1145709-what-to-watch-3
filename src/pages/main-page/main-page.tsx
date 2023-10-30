@@ -60,7 +60,7 @@ function MainPage(props: MainScreenProps): JSX.Element {
       </section>
 
       <div className="page-content">
-        <FilmList films={films}/>
+        <FilmList films={films} title={'Catalog'}/>
 
         <Footer/>
       </div>
