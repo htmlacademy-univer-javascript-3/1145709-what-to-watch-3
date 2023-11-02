@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app.tsx';
 import {BrowserRouter} from 'react-router-dom';
+import {films} from './mocks/films';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -10,7 +11,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App/>
+      <App films={films}/>
     </BrowserRouter>
   </React.StrictMode>
 );
