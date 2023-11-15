@@ -1,6 +1,7 @@
 import {Films} from '../types/film';
 
-const videoMockSrc = 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4';
+const videoMockSrc1 = 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4';
+const videoMockSrc2 = 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm';
 
 export const films: Films = [
   {
@@ -17,7 +18,7 @@ export const films: Films = [
     posterImageSrc: '/img/the-grand-budapest-hotel-poster.jpg',
     imageSrc: '/img/bg-the-grand-budapest-hotel.jpg',
     reviews: [],
-    videoSrc: videoMockSrc,
+    videoSrc: videoMockSrc1,
   },
   {
     id: 'fantastic-beasts-the-crimes-of-grindelwald',
@@ -33,7 +34,7 @@ export const films: Films = [
     posterImageSrc: '/img/Fantastic_Beasts_-_The_Crimes_of_Grindelwald_Poster.png',
     imageSrc: '/img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
     reviews: [],
-    videoSrc: videoMockSrc,
+    videoSrc: videoMockSrc1,
   },
   {
     id: 'bohemian-rhapsody',
@@ -49,7 +50,7 @@ export const films: Films = [
     posterImageSrc: '/img/Bohemian_Rhapsody_poster.png',
     imageSrc: '/img/bohemian-rhapsody.jpg',
     reviews: [],
-    videoSrc: videoMockSrc,
+    videoSrc: videoMockSrc1,
   },
   {
     id: 'macbeth',
@@ -65,7 +66,7 @@ export const films: Films = [
     posterImageSrc: '/img/Macbeth_2015_poster.jpg',
     imageSrc: '/img/macbeth.jpg',
     reviews: [],
-    videoSrc: videoMockSrc,
+    videoSrc: videoMockSrc1,
   },
   {
     id: 'revenant',
@@ -83,7 +84,7 @@ export const films: Films = [
     posterImageSrc: '/img/The_Revenant_2015_film_poster.jpg',
     imageSrc: '/img/revenant.jpg',
     reviews: [],
-    videoSrc: videoMockSrc,
+    videoSrc: videoMockSrc2,
   },
   {
     id: 'what-we-do-in-the-shadows',
@@ -101,7 +102,7 @@ export const films: Films = [
     posterImageSrc: '/img/What_We_Do_in_the_Shadows_Title_Card.jpg',
     imageSrc: '/img/what-we-do-in-the-shadows.jpg',
     reviews: [],
-    videoSrc: videoMockSrc,
+    videoSrc: videoMockSrc2,
   },
   {
     id: 'we-need-to-talk-about-kevin',
@@ -121,7 +122,7 @@ export const films: Films = [
     posterImageSrc: '/img/We_need_to_talk_about_kevin_ver2.jpg',
     imageSrc: '/img/we-need-to-talk-about-kevin.jpg',
     reviews: [],
-    videoSrc: videoMockSrc,
+    videoSrc: videoMockSrc2,
   },
   {
     id: 'aviator',
@@ -139,6 +140,6 @@ export const films: Films = [
     posterImageSrc: '/img/The_Aviator_(2004).png',
     imageSrc: '/img/aviator.jpg',
     reviews: [],
-    videoSrc: videoMockSrc,
+    videoSrc: videoMockSrc2,
   },
 ];
