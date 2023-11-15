@@ -26,7 +26,7 @@ function FilmDesc(props: FilmDescProps): JSX.Element {
 
   const {film} = props;
   const [searchParams] = useSearchParams();
-  const selectedKey = searchParams.get('tab') || DescriptionType.Overview;
+  const selectedKey = searchParams.get('tab') as DescriptionType || DescriptionType.Overview;
 
   return (
     <div className="film-card__wrap film-card__translate-top">
@@ -35,7 +35,7 @@ function FilmDesc(props: FilmDescProps): JSX.Element {
           <img src={film.posterImageSrc} alt={`${film.title} poster`} width="218" height="327"/>
         </div>
         <div className="film-card__desc">
-          <FilmTabs films={film} selectedKey={selectedKey}/>
+          <FilmTabs selectedKey={selectedKey}/>
           {getComponentByType(selectedKey, film)}
         </div>
       </div>
