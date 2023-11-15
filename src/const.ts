@@ -1,3 +1,5 @@
+import {Film} from './types/film';
+
 export enum AuthorizationStatus {
   Auth= 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -12,4 +14,14 @@ export enum AppRoute {
   Reviews = 'reviews',
   Player = '/player',
   NotFound = '/404'
+}
+
+export enum DescriptionType {
+  Overview = 'overview',
+  Details = 'details',
+  Reviews = 'reviews'
+}
+
+export interface CommonDescriptionProps {
+  film: Film;
 }

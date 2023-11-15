@@ -1,0 +1,46 @@
+import FilmTabs from '../film-tabs/film-tabs';
+import {Film} from '../../types/film';
+import {useSearchParams} from 'react-router-dom';
+import {DescOverview} from '../desc-overview/desc-overview';
+import {DescriptionType} from '../../const';
+import {DescDetails} from '../desc-details/desc-details';
+import {DescReviews} from '../../pages/desc-reviews/desc-reviews';
+
+interface FilmDescProps {
+  film: Film;
+}
+
+function FilmDesc(props: FilmDescProps): JSX.Element {
+  const getComponentByType = (type: DescriptionType, film: Film) => {
+    switch (type) {
+      case DescriptionType.Overview:
+        return <DescOverview film={film}/>;
+      case DescriptionType.Details:
+        return <DescDetails film={film}/>;
+      case DescriptionType.Reviews:
+        return <DescReviews film={film}/>;
+      default:
+        return undefined;
+    }
+  };
+
+  const {film} = props;
+  const [searchParams] = useSearchParams();
+  const selectedKey = searchParams.get('tab') || DescriptionType.Overview;
+
+  return (
+    <div className="film-card__wrap film-card__translate-top">
+      <div className="film-card__info">
+        <div className="film-card__poster film-card__poster--big">
+          <img src={film.posterImageSrc} alt={`${film.title} poster`} width="218" height="327"/>
+        </div>
+        <div className="film-card__desc">
+          <FilmTabs films={film} selectedKey={selectedKey}/>
+          {getComponentByType(selectedKey, film)}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default FilmDesc;

@@ -1,4 +1,4 @@
-import {Films} from '../../types/film';
+import {Film, Films} from '../../types/film';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {useFilm} from '../../hooks/use-film';
@@ -6,14 +6,21 @@ import {FilmList} from '../../components/film-list/film-list';
 import {Footer} from '../../components/footer/footer';
 import {Header} from '../../components/header/header';
 import {Navigate} from 'react-router-dom';
-import {Artist} from '../../types/artist';
+import FilmDesc from '../../components/film-desc/film-desc';
 
 interface FilmPageProps {
   films: Films;
 }
 
 function FilmPage(props: FilmPageProps): JSX.Element {
-  const { films } = props;
+  const areFilmsGenresSimilar = (film1: Film, film2: Film) => {
+    const genre1 = film1.genre.toLowerCase();
+    const genre2 = film2.genre.toLowerCase();
+
+    return genre2 === genre1 || genre1.includes(genre2) || genre2.includes(genre1);
+  };
+
+  const {films} = props;
   const film = useFilm(films);
 
   if (film === undefined) {
@@ -25,7 +32,7 @@ function FilmPage(props: FilmPageProps): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.imageSrc} alt={film.title} />
+            <img src={film.imageSrc} alt={film.title}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -60,50 +67,12 @@ function FilmPage(props: FilmPageProps): JSX.Element {
           </div>
         </div>
 
-        <div className="film-card__wrap film-card__translate-top">
-          <div className="film-card__info">
-            <div className="film-card__poster film-card__poster--big">
-              <img src={film.posterImageSrc} alt={`${film.title} poster`} width="218" height="327" />
-            </div>
-
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">8,9</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">240 ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{film.info.text}</p>
-
-                <p className="film-card__director"><strong>Director: {film.info.director}</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: {film.info.starring.map((artist: Artist) => artist.name).join(', ')}</strong></p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <FilmDesc film={film}/>
       </section>
 
       <div className="page-content">
         <FilmList
-          films={films}
+          films={films.filter((localFilm) => film && areFilmsGenresSimilar(localFilm, film))}
           title={'More like this'}
           showGenres={false}
           stepCount={4}
