@@ -6,7 +6,7 @@ function VideoPlayer({film}: {film: Film}) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    let timer: number;
+    let timer: ReturnType<typeof setTimeout>;
     if (videoRef) {
       if (isPlaying) {
         timer = setTimeout(() => {
@@ -24,7 +24,7 @@ function VideoPlayer({film}: {film: Film}) {
 
   return (
     <div className="small-film-card__image" onMouseEnter={() => setIsPlaying(true)} onMouseLeave={() => setIsPlaying(false)}>
-      <video ref={videoRef} width={'100%'} preload={'auto'} src={film.videoSrc} poster={film.imageSrc} muted="muted"/>
+      <video ref={videoRef} width={'100%'} preload={'auto'} src={film.videoSrc} poster={film.imageSrc} muted/>
     </div>
   );
 }
