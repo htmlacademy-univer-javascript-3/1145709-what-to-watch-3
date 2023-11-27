@@ -16,6 +16,7 @@ export const GenreList = () => {
 
   useEffect(() => {
     dispatch(changeGenre(searchParams.get('genre') || DefaultFilmGenre));
+    dispatch(filterFilmsByGenre());
   }, [dispatch, searchParams]);
 
   const onClickHandler = (genre: string) => {
