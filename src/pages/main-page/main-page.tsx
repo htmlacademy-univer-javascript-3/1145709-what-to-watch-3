@@ -4,7 +4,7 @@ import {Header} from '../../components/header/header';
 import {useDispatch} from 'react-redux';
 import {StoreSchema} from '../../store/reducer.ts';
 import {useEffect} from 'react';
-import {filterFilmsByGenre} from '../../store/action.ts';
+import {filterFilmsByGenre, resetMoreCounter} from '../../store/action.ts';
 import {useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 
 interface MainScreenProps {
@@ -17,11 +17,14 @@ function MainPage(props: MainScreenProps): JSX.Element {
   const {promoFilmName, promoFilmGenre, promoFilmReleaseDate} = props;
 
   const filmsByGenre = useAppSelector((state: StoreSchema) => state.filmsByGenre);
+  const moreCounter = useAppSelector((state: StoreSchema) => state.moreCounter);
+  const currentGenre = useAppSelector((state: StoreSchema) => state.genre);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(filterFilmsByGenre());
-  }, [dispatch]);
+    dispatch(resetMoreCounter());
+  }, [dispatch, currentGenre]);
 
   return (
     <>
@@ -70,7 +73,11 @@ function MainPage(props: MainScreenProps): JSX.Element {
       </section>
 
       <div className="page-content">
-        <FilmList films={filmsByGenre} title={'Catalog'}/>
+        <FilmList
+          films={filmsByGenre}
+          title={'Catalog'}
+          limit={moreCounter}
+        />
         <Footer/>
       </div>
     </>
