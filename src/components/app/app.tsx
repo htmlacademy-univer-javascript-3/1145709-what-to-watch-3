@@ -22,7 +22,6 @@ function App(props: AppProps): JSX.Element {
       <Route path={AppRoute.Root}>
         <Route index element={
           <MainPage promoFilmGenre={'Drama'}
-            films={films}
             promoFilmName={'The Grand Budapest Hotel'}
             promoFilmReleaseDate={new Date(2014, 0)}
           />

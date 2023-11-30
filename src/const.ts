@@ -25,3 +25,5 @@ export enum DescriptionType {
 export interface CommonDescriptionProps {
   film: Film;
 }
+
+export const DefaultFilmGenre = 'All genres';

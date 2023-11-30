@@ -13,7 +13,7 @@ export const DescDetails = (props: CommonDescriptionProps) => {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {film.info.starring.map((artist) => <>{artist.name},<br/></>)}
+            {film.info.starring.map((artist) => <span key={artist.name}>{artist.name},<br/></span>)}
           </span>
         </p>
       </div>

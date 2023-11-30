@@ -3,5 +3,5 @@ export type Review = {
   text: string;
   authorName: string;
   rating: number;
-  created: Date;
+  created: string;
 }

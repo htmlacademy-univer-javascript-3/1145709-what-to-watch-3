@@ -1,17 +1,27 @@
-import {Films} from '../../types/film';
 import {FilmList} from '../../components/film-list/film-list';
 import {Footer} from '../../components/footer/footer';
 import {Header} from '../../components/header/header';
+import {useDispatch} from 'react-redux';
+import {StoreSchema} from '../../store/reducer.ts';
+import {useEffect} from 'react';
+import {filterFilmsByGenre} from '../../store/action.ts';
+import {useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 
 interface MainScreenProps {
   promoFilmName: string;
   promoFilmGenre: string;
   promoFilmReleaseDate: Date;
-  films: Films;
 }
 
 function MainPage(props: MainScreenProps): JSX.Element {
-  const {promoFilmName, promoFilmGenre, promoFilmReleaseDate, films} = props;
+  const {promoFilmName, promoFilmGenre, promoFilmReleaseDate} = props;
+
+  const filmsByGenre = useAppSelector((state: StoreSchema) => state.filmsByGenre);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(filterFilmsByGenre());
+  }, [dispatch]);
 
   return (
     <>
@@ -60,8 +70,7 @@ function MainPage(props: MainScreenProps): JSX.Element {
       </section>
 
       <div className="page-content">
-        <FilmList films={films} title={'Catalog'}/>
-
+        <FilmList films={filmsByGenre} title={'Catalog'}/>
         <Footer/>
       </div>
     </>
