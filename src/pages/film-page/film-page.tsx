@@ -75,7 +75,7 @@ function FilmPage(props: FilmPageProps): JSX.Element {
           films={films.filter((localFilm) => film && areFilmsGenresSimilar(localFilm, film))}
           title={'More like this'}
           showGenres={false}
-          stepCount={4}
+          limit={4}
           showTitle
           showMore={false}
           className={'catalog catalog--like-this'}

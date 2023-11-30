@@ -27,3 +27,4 @@ export interface CommonDescriptionProps {
 }
 
 export const DefaultFilmGenre = 'All genres';
+export const DefaultMoreCounterValue = 8;
