@@ -1,14 +1,18 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {
   changeGenre,
+  clearAuthData,
   filterFilmsByGenre,
   incMoreCounter,
   resetMoreCounter,
+  setAuthData,
+  setAuthStatus,
   setFilms,
   setIsFilmsLoading
 } from './action.ts';
-import {DefaultFilmGenre, DefaultMoreCounterValue} from '../const.ts';
+import {AuthorizationStatus, DefaultFilmGenre, DefaultMoreCounterValue} from '../const.ts';
 import {FilmShallow} from '../types/filmShallow.ts';
+import {AuthData} from '../types/auth.ts';
 
 export interface StoreSchema {
   films: FilmShallow[];
@@ -16,6 +20,9 @@ export interface StoreSchema {
   moreCounter: number;
   genre: string;
   isFilmListLoading: boolean;
+  authorizationStatus: AuthorizationStatus;
+  authData?: AuthData;
+  isAuthenticated: boolean;
 }
 
 const initialState: StoreSchema = {
@@ -24,6 +31,8 @@ const initialState: StoreSchema = {
   moreCounter: DefaultMoreCounterValue,
   isFilmListLoading: true,
   genre: 'All genres',
+  authorizationStatus: AuthorizationStatus.Unknown,
+  isAuthenticated: false,
 };
 
 export const reducer = createReducer<StoreSchema>(initialState,
@@ -46,5 +55,17 @@ export const reducer = createReducer<StoreSchema>(initialState,
       })
       .addCase(setIsFilmsLoading, (state, action) => {
         state.isFilmListLoading = action.payload;
+      })
+      .addCase(setAuthStatus, (state, action) => {
+        state.authorizationStatus = action.payload;
+        state.isAuthenticated = state.authorizationStatus === AuthorizationStatus.Auth;
+      })
+      .addCase(setAuthData, (state, action) => {
+        state.authData = action.payload;
+      })
+      .addCase(clearAuthData, (state) => {
+        state.authData = undefined;
+        state.authorizationStatus = AuthorizationStatus.Unknown;
+        state.isAuthenticated = false;
       });
   });

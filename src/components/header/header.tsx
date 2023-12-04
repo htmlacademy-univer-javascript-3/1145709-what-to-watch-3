@@ -1,6 +1,8 @@
 import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 import {Film} from '../../types/film';
+import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
+import {clearAuthData} from '../../store/action.ts';
 
 interface HeaderProps {
   showBreadcrumbs?: boolean;
@@ -9,6 +11,9 @@ interface HeaderProps {
 
 export const Header = (props: HeaderProps) => {
   const {showBreadcrumbs = false, film} = props;
+  const isAuth = useAppSelector((state) => state.isAuthenticated);
+  const authData = useAppSelector((state) => state.authData);
+  const dispatch = useAppDispatch();
 
   return (
     <header className="page-header">
@@ -21,26 +26,39 @@ export const Header = (props: HeaderProps) => {
       </div>
 
       {showBreadcrumbs && film &&
-      <nav className="breadcrumbs">
-        <ul className="breadcrumbs__list">
-          <li className="breadcrumbs__item">
-            <Link to={`${AppRoute.Films}/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
-          </li>
-          <li className="breadcrumbs__item">
-            <a className="breadcrumbs__link">Add review</a>
-          </li>
-        </ul>
-      </nav>}
+        <nav className="breadcrumbs">
+          <ul className="breadcrumbs__list">
+            <li className="breadcrumbs__item">
+              <Link to={`${AppRoute.Films}/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
+            </li>
+            <li className="breadcrumbs__item">
+              <a className="breadcrumbs__link">Add review</a>
+            </li>
+          </ul>
+        </nav>}
 
       <ul className="user-block">
-        <li className="user-block__item">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-          </div>
-        </li>
-        <li className="user-block__item">
-          <a className="user-block__link">Sign out</a>
-        </li>
+        {isAuth ?
+          <>
+            <li className="user-block__item">
+              <div className="user-block__avatar">
+                <img src={authData?.avatarUrl} alt={authData?.name} width="63" height="63"/>
+              </div>
+            </li>
+            <li className="user-block__item">
+              <Link to={AppRoute.SignIn} onClick={() => {
+                dispatch(clearAuthData());
+                localStorage.removeItem('token');
+              }} className="user-block__link"
+              >
+                Sign out
+              </Link>
+            </li>
+          </>
+          :
+          <li className="user-block__item">
+            <Link to={AppRoute.SignIn} className="user-block__link">Sign in</Link>
+          </li>}
       </ul>
     </header>
   );

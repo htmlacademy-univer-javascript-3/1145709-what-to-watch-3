@@ -7,19 +7,21 @@ import FilmPage from '../../pages/film-page/film-page.tsx';
 import AddReviewPage from '../../pages/add-review-page/add-review-page.tsx';
 import PlayerPage from '../../pages/player-page/player-page.tsx';
 import {PrivateRoute} from '../private-route/private-route.tsx';
-import {AppRoute, AuthorizationStatus} from '../../const.ts';
+import {AppRoute} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {useEffect} from 'react';
-import {getAllFilms} from '../../store/thunk.ts';
+import {getAllFilms, getLoginData} from '../../store/thunk.ts';
 import {Spinner} from '../spinner/spinner.tsx';
 
 function App(): JSX.Element {
   const films = useAppSelector((state) => state.films);
   const isLoading = useAppSelector((state) => state.isFilmListLoading);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getAllFilms());
+    dispatch(getLoginData());
   }, [dispatch]);
 
   if (isLoading) {
@@ -35,7 +37,7 @@ function App(): JSX.Element {
         />
         <Route path={AppRoute.SignIn} element={<SignInPage/>}/>
         <Route path={AppRoute.MyList} element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+          <PrivateRoute authorizationStatus={authStatus}>
             <MyListPage/>
           </PrivateRoute>
         }
