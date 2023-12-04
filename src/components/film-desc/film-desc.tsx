@@ -32,7 +32,7 @@ function FilmDesc(props: FilmDescProps): JSX.Element {
     <div className="film-card__wrap film-card__translate-top">
       <div className="film-card__info">
         <div className="film-card__poster film-card__poster--big">
-          <img src={film.posterImageSrc} alt={`${film.title} poster`} width="218" height="327"/>
+          <img src={film.posterImageSrc} alt={`${film.name} poster`} width="218" height="327"/>
         </div>
         <div className="film-card__desc">
           <FilmTabs selectedKey={selectedKey}/>

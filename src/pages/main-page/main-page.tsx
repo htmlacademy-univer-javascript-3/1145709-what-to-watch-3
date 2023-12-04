@@ -1,11 +1,12 @@
 import {FilmList} from '../../components/film-list/film-list';
 import {Footer} from '../../components/footer/footer';
 import {Header} from '../../components/header/header';
-import {useDispatch} from 'react-redux';
 import {StoreSchema} from '../../store/reducer.ts';
 import {useEffect} from 'react';
-import {filterFilmsByGenre, resetMoreCounter} from '../../store/action.ts';
-import {useAppSelector} from '../../hooks/redux-typed-hooks.ts';
+import {filterFilmsByGenre} from '../../store/action.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
+import {MyListButton} from '../../components/my-list-button/my-list-button.tsx';
+import {PlayButton} from '../../components/play-button/play-button.tsx';
 
 interface MainScreenProps {
   promoFilmName: string;
@@ -17,13 +18,12 @@ function MainPage(props: MainScreenProps): JSX.Element {
   const {promoFilmName, promoFilmGenre, promoFilmReleaseDate} = props;
 
   const filmsByGenre = useAppSelector((state: StoreSchema) => state.filmsByGenre);
-  const moreCounter = useAppSelector((state: StoreSchema) => state.moreCounter);
+
   const currentGenre = useAppSelector((state: StoreSchema) => state.genre);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(filterFilmsByGenre());
-    dispatch(resetMoreCounter());
   }, [dispatch, currentGenre]);
 
   return (
@@ -53,19 +53,8 @@ function MainPage(props: MainScreenProps): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                <PlayButton/>
+                <MyListButton/>
               </div>
             </div>
           </div>
@@ -76,7 +65,6 @@ function MainPage(props: MainScreenProps): JSX.Element {
         <FilmList
           films={filmsByGenre}
           title={'Catalog'}
-          limit={moreCounter}
         />
         <Footer/>
       </div>

@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
-import {Film} from '../../types/film';
+import {FilmShallow} from '../../types/filmShallow.ts';
 
-function VideoPlayer({film}: {film: Film}) {
+function VideoPlayer({film}: {film: FilmShallow}) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -24,7 +24,7 @@ function VideoPlayer({film}: {film: Film}) {
 
   return (
     <div className="small-film-card__image" onMouseEnter={() => setIsPlaying(true)} onMouseLeave={() => setIsPlaying(false)}>
-      <video ref={videoRef} width={'100%'} preload={'auto'} src={film.videoSrc} poster={film.imageSrc} muted/>
+      <video ref={videoRef} width={'100%'} preload={'auto'} src={film.previewVideoLink} poster={film.previewImage} muted/>
     </div>
   );
 }

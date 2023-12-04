@@ -1,9 +1,9 @@
-import {useDispatch} from 'react-redux';
 import {incMoreCounter} from '../../store/action.ts';
+import {useAppDispatch} from '../../hooks/redux-typed-hooks.ts';
 
 
 export const ShowMore = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <div className="catalog__more">

@@ -1,13 +1,16 @@
-import {Film, Films} from '../../types/film';
 import FilmCard from '../film-card/film-card';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {GenreList} from '../genre-list/genre-list.tsx';
 import {DefaultMoreCounterValue} from '../../const.ts';
 import {ShowMore} from '../show-more/show-more.tsx';
+import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
+import {StoreSchema} from '../../store/reducer.ts';
+import {resetMoreCounter} from '../../store/action.ts';
+import {FilmShallow} from '../../types/filmShallow.ts';
 
 
 interface FilmListProps {
-  films: Films;
+  films: FilmShallow[];
   title: string;
   limit?: number;
 
@@ -20,6 +23,12 @@ interface FilmListProps {
 export function FilmList(props: FilmListProps) {
   const {films, title, limit = DefaultMoreCounterValue, showGenres = true, showTitle = false, showMore = limit < films.length, className} = props;
   const [, setCurrentFilm] = useState({});
+  const moreCounter = useAppSelector((state: StoreSchema) => state.moreCounter);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(resetMoreCounter());
+  }, [dispatch]);
 
   return (
     <section className={className ?? 'catalog'}>
@@ -29,12 +38,12 @@ export function FilmList(props: FilmListProps) {
 
 
       <div className="catalog__films-list">
-        {films.slice(0, limit).map(
-          (film: Film) => <FilmCard film={film} key={film.id} onMouseEnter={() => setCurrentFilm(film)}/>
+        {films.slice(0, moreCounter).map(
+          (film: FilmShallow) => <FilmCard film={film} key={film.id} onMouseEnter={() => setCurrentFilm(film)}/>
         )}
       </div>
 
-      {showMore && <ShowMore/>}
+      {showMore && moreCounter < films.length && <ShowMore/>}
     </section>
   );
 }

@@ -8,39 +8,45 @@ import AddReviewPage from '../../pages/add-review-page/add-review-page.tsx';
 import PlayerPage from '../../pages/player-page/player-page.tsx';
 import {PrivateRoute} from '../private-route/private-route.tsx';
 import {AppRoute, AuthorizationStatus} from '../../const.ts';
-import {Films} from '../../types/film';
+import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
+import {useEffect} from 'react';
+import {getAllFilms} from '../../store/thunk.ts';
+import {Spinner} from '../spinner/spinner.tsx';
 
-interface AppProps {
-  films: Films;
-}
+function App(): JSX.Element {
+  const films = useAppSelector((state) => state.films);
+  const isLoading = useAppSelector((state) => state.isFilmListLoading);
+  const dispatch = useAppDispatch();
 
-function App(props: AppProps): JSX.Element {
-  const { films } = props;
+  useEffect(() => {
+    dispatch(getAllFilms());
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <Spinner/>;
+  }
 
   return (
     <Routes>
       <Route path={AppRoute.Root}>
         <Route index element={
-          <MainPage promoFilmGenre={'Drama'}
-            promoFilmName={'The Grand Budapest Hotel'}
-            promoFilmReleaseDate={new Date(2014, 0)}
-          />
+          <MainPage promoFilmGenre={'Drama'} promoFilmName={'The Grand Budapest Hotel'} promoFilmReleaseDate={new Date(2014, 0)}/>
         }
         />
-        <Route path={AppRoute.SignIn} element={<SignInPage />} />
+        <Route path={AppRoute.SignIn} element={<SignInPage/>}/>
         <Route path={AppRoute.MyList} element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-            <MyListPage films={films} />
+            <MyListPage/>
           </PrivateRoute>
         }
         />
-        <Route path={`${AppRoute.Films}/:id/`} >
-          <Route index element={<FilmPage films={films} />} />
-          <Route path={AppRoute.Reviews} element={<AddReviewPage films={films}/>} />
+        <Route path={`${AppRoute.Films}/:id/`}>
+          <Route index element={<FilmPage films={films}/>}/>
+          <Route path={AppRoute.Reviews} element={<AddReviewPage />}/>
         </Route>
-        <Route index path={`${AppRoute.Player}/:id/`} element={<PlayerPage films={films} />} />
+        <Route index path={`${AppRoute.Player}/:id/`} element={<PlayerPage />}/>
       </Route>
-      <Route path='*' element={<Page404 />} />
+      <Route path="*" element={<Page404/>}/>
     </Routes>
   );
 }
