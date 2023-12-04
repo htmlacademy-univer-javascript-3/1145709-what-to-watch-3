@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app.tsx';
 import {BrowserRouter} from 'react-router-dom';
-import {films} from './mocks/films';
 import {Provider} from 'react-redux';
 import {store} from './store/store.ts';
 
@@ -14,7 +13,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <App films={films}/>
+        <App/>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>

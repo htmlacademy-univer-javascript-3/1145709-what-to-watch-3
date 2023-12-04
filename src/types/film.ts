@@ -3,7 +3,7 @@ import {Artist} from './artist';
 
 export type Film = {
   id: string;
-  title: string;
+  name: string;
   genre: string;
   year: number;
   ratingScore: number;
@@ -13,8 +13,8 @@ export type Film = {
     starring: Artist[];
   };
   posterImageSrc: string;
-  imageSrc: string;
-  videoSrc: string;
+  previewImage: string;
+  previewVideoLink: string;
   reviews: Review[];
 }
 

@@ -1,17 +1,11 @@
-import {Films} from '../../types/film';
 import {useFilm} from '../../hooks/use-film';
 import {AppRoute} from '../../const';
 import {Navigate} from 'react-router-dom';
 import {Header} from '../../components/header/header';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 
-interface AddReviewPageProps {
-  films: Films;
-}
-
-function AddReviewPage(props: AddReviewPageProps): JSX.Element {
-  const {films} = props;
-  const film = useFilm(films);
+function AddReviewPage(): JSX.Element {
+  const film = useFilm();
 
   if (film === undefined) {
     return <Navigate to={AppRoute.NotFound}/>;
@@ -21,7 +15,7 @@ function AddReviewPage(props: AddReviewPageProps): JSX.Element {
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={film.imageSrc} alt={film.title} />
+          <img src={film.previewImage} alt={film.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -32,7 +26,7 @@ function AddReviewPage(props: AddReviewPageProps): JSX.Element {
         />
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={film.posterImageSrc} alt={`${film.title} poster`} width="218" height="327" />
+          <img src={film.posterImageSrc} alt={`${film.name} poster`} width="218" height="327" />
         </div>
       </div>
 

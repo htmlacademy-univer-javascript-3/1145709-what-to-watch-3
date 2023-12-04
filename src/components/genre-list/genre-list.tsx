@@ -1,14 +1,13 @@
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import {changeGenre} from '../../store/action';
 import {useEffect} from 'react';
-import {useAppSelector} from '../../hooks/redux-typed-hooks';
-import {useDispatch} from 'react-redux';
+import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks';
 import {DefaultFilmGenre} from '../../const.ts';
 
 export const GenreList = () => {
   const navigate = useNavigate();
   const currentGenre = useAppSelector((state) => state.genre);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const films = useAppSelector((state) => state.films);
 
   const uniqueGenres = [DefaultFilmGenre, ...new Set(films.map((x) => x.genre))];

@@ -1,20 +1,28 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {Films} from '../types/film.ts';
-import {changeGenre, filterFilmsByGenre, incMoreCounter, resetMoreCounter} from './action.ts';
-import {films} from '../mocks/films.ts';
+import {
+  changeGenre,
+  filterFilmsByGenre,
+  incMoreCounter,
+  resetMoreCounter,
+  setFilms,
+  setIsFilmsLoading
+} from './action.ts';
 import {DefaultFilmGenre, DefaultMoreCounterValue} from '../const.ts';
+import {FilmShallow} from '../types/filmShallow.ts';
 
 export interface StoreSchema {
-  films: Films;
-  filmsByGenre: Films;
+  films: FilmShallow[];
+  filmsByGenre: FilmShallow[];
   moreCounter: number;
   genre: string;
+  isFilmListLoading: boolean;
 }
 
 const initialState: StoreSchema = {
-  films: films,
+  films: [],
   filmsByGenre: [],
   moreCounter: DefaultMoreCounterValue,
+  isFilmListLoading: true,
   genre: 'All genres',
 };
 
@@ -27,10 +35,16 @@ export const reducer = createReducer<StoreSchema>(initialState,
       .addCase(incMoreCounter, (state) => {
         state.moreCounter = state.moreCounter += 8;
       })
-      .addCase(resetMoreCounter, (state) => {
-        state.moreCounter = DefaultMoreCounterValue;
+      .addCase(resetMoreCounter, (state, action) => {
+        state.moreCounter = action.payload;
       })
       .addCase(changeGenre, (state, action) => {
         state.genre = action.payload;
+      })
+      .addCase(setFilms, (state, action) => {
+        state.films = action.payload;
+      })
+      .addCase(setIsFilmsLoading, (state, action) => {
+        state.isFilmListLoading = action.payload;
       });
   });
