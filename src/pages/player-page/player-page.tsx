@@ -3,7 +3,7 @@ import {AppRoute} from '../../const';
 import {useFilm} from '../../hooks/use-film';
 
 function PlayerPage(): JSX.Element {
-  const film = useFilm();
+  const { film } = useFilm();
 
   if (film === undefined) {
     return <Navigate to={AppRoute.NotFound}/>;
@@ -11,7 +11,7 @@ function PlayerPage(): JSX.Element {
 
   return (
     <div className="player">
-      <video src={film.previewVideoLink} className="player__video" autoPlay ></video>
+      <video src={film.videoLink} className="player__video" autoPlay ></video>
 
       <button type="button" className="player__exit">Exit</button>
 

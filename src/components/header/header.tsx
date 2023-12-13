@@ -2,7 +2,7 @@ import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 import {Film} from '../../types/film';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
-import {clearAuthData} from '../../store/action.ts';
+import {logout} from '../../store/thunk.ts';
 
 interface HeaderProps {
   showBreadcrumbs?: boolean;
@@ -46,13 +46,12 @@ export const Header = (props: HeaderProps) => {
               </div>
             </li>
             <li className="user-block__item">
-              <Link to={AppRoute.SignIn} onClick={() => {
-                dispatch(clearAuthData());
-                localStorage.removeItem('token');
+              <div onClick={() => {
+                dispatch(logout());
               }} className="user-block__link"
               >
                 Sign out
-              </Link>
+              </div>
             </li>
           </>
           :

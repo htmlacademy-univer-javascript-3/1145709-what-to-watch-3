@@ -1,4 +1,3 @@
-import {Artist} from '../../types/artist';
 import {CommonDescriptionProps} from '../../const';
 
 export const DescOverview = (props: CommonDescriptionProps) => {
@@ -7,19 +6,19 @@ export const DescOverview = (props: CommonDescriptionProps) => {
   return (
     <>
       <div className="film-rating">
-        <div className="film-rating__score">{film.ratingScore}</div>
+        <div className="film-rating__score">{film.rating}</div>
         <p className="film-rating__meta">
           <span className="film-rating__level">Very good</span>
-          <span className="film-rating__count">240 ratings</span>
+          <span className="film-rating__count">{film.scoresCount} ratings</span>
         </p>
       </div>
       <div className="film-card__text">
-        <p>{film.info.text}</p>
+        <p>{film.description}</p>
 
-        <p className="film-card__director"><strong>Director: {film.info.director}</strong></p>
+        <p className="film-card__director"><strong>Director: {film.director}</strong></p>
 
         <p className="film-card__starring">
-          <strong>Starring: {film.info.starring.map((artist: Artist) => artist.name).join(', ')}</strong>
+          <strong>Starring: {film.starring.map((artistName) => artistName).join(', ')}</strong>
         </p>
       </div>
     </>

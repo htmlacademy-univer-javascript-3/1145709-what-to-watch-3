@@ -18,7 +18,7 @@ function FilmDesc(props: FilmDescProps): JSX.Element {
       case DescriptionType.Details:
         return <DescDetails film={film}/>;
       case DescriptionType.Reviews:
-        return <DescReviews film={film}/>;
+        return <DescReviews />;
       default:
         return undefined;
     }
@@ -32,7 +32,7 @@ function FilmDesc(props: FilmDescProps): JSX.Element {
     <div className="film-card__wrap film-card__translate-top">
       <div className="film-card__info">
         <div className="film-card__poster film-card__poster--big">
-          <img src={film.posterImageSrc} alt={`${film.name} poster`} width="218" height="327"/>
+          <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327"/>
         </div>
         <div className="film-card__desc">
           <FilmTabs selectedKey={selectedKey}/>

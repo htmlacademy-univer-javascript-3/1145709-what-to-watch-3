@@ -6,20 +6,26 @@ import {
   incMoreCounter,
   resetMoreCounter,
   setAuthData,
-  setAuthStatus,
-  setFilms,
-  setIsFilmsLoading
+  setAuthStatus, setComments, setFilm,
+  setFilms, setIsFilmLoading,
+  setIsFilmsLoading, setSimilarFilms
 } from './action.ts';
 import {AuthorizationStatus, DefaultFilmGenre, DefaultMoreCounterValue} from '../const.ts';
 import {FilmShallow} from '../types/filmShallow.ts';
 import {AuthData} from '../types/auth.ts';
+import {Film} from '../types/film.ts';
+import {FilmComment} from '../types/film-comment.ts';
 
 export interface StoreSchema {
   films: FilmShallow[];
+  film?: Film;
+  similarFilms: FilmShallow[];
+  filmComments: FilmComment[];
   filmsByGenre: FilmShallow[];
   moreCounter: number;
   genre: string;
   isFilmListLoading: boolean;
+  isFilmLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   authData?: AuthData;
   isAuthenticated: boolean;
@@ -27,9 +33,13 @@ export interface StoreSchema {
 
 const initialState: StoreSchema = {
   films: [],
+  film: undefined,
+  similarFilms: [],
+  filmComments: [],
   filmsByGenre: [],
   moreCounter: DefaultMoreCounterValue,
   isFilmListLoading: true,
+  isFilmLoading: true,
   genre: 'All genres',
   authorizationStatus: AuthorizationStatus.Unknown,
   isAuthenticated: false,
@@ -53,8 +63,20 @@ export const reducer = createReducer<StoreSchema>(initialState,
       .addCase(setFilms, (state, action) => {
         state.films = action.payload;
       })
+      .addCase(setFilm, (state, action) => {
+        state.film = action.payload;
+      })
+      .addCase(setComments, (state, action) => {
+        state.filmComments = action.payload;
+      })
       .addCase(setIsFilmsLoading, (state, action) => {
         state.isFilmListLoading = action.payload;
+      })
+      .addCase(setIsFilmLoading, (state, action) => {
+        state.isFilmLoading = action.payload;
+      })
+      .addCase(setSimilarFilms, (state, action) => {
+        state.similarFilms = action.payload;
       })
       .addCase(setAuthStatus, (state, action) => {
         state.authorizationStatus = action.payload;
