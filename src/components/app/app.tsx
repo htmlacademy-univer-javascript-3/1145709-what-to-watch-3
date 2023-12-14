@@ -14,7 +14,6 @@ import {getAllFilms, getLoginData} from '../../store/thunk.ts';
 import {Spinner} from '../spinner/spinner.tsx';
 
 function App(): JSX.Element {
-  const films = useAppSelector((state) => state.films);
   const isLoading = useAppSelector((state) => state.isFilmListLoading);
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
@@ -43,8 +42,13 @@ function App(): JSX.Element {
         }
         />
         <Route path={`${AppRoute.Films}/:id/`}>
-          <Route index element={<FilmPage films={films}/>}/>
-          <Route path={AppRoute.Reviews} element={<AddReviewPage />}/>
+          <Route index element={<FilmPage/>}/>
+          <Route path={AppRoute.Reviews} element={
+            <PrivateRoute authorizationStatus={authStatus}>
+              <AddReviewPage />
+            </PrivateRoute>
+          }
+          />
         </Route>
         <Route index path={`${AppRoute.Player}/:id/`} element={<PlayerPage />}/>
       </Route>
