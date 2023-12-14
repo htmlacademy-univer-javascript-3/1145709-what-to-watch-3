@@ -1,14 +1,8 @@
 import axios, {AxiosError, AxiosRequestConfig} from 'axios';
-import {clearAuthData} from './store/action.ts';
-import {store} from './store/store.ts';
+import {clearAuthData} from '../store/action.ts';
+import {store} from '../store/store.ts';
+import {getToken} from './utils.ts';
 
-export function getToken() {
-  return localStorage.getItem('token') ?? '';
-}
-
-export function setToken(token: string){
-  localStorage.setItem('token', token);
-}
 export const getAxiosObject = () => {
   const axiousInstance = axios.create({
     baseURL: 'https://13.design.pages.academy/wtw',

@@ -1,5 +1,5 @@
 import {AppRoute} from '../../const';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {Film} from '../../types/film';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {logout} from '../../store/thunk.ts';
@@ -14,6 +14,7 @@ export const Header = (props: HeaderProps) => {
   const isAuth = useAppSelector((state) => state.isAuthenticated);
   const authData = useAppSelector((state) => state.authData);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   return (
     <header className="page-header">
@@ -47,7 +48,7 @@ export const Header = (props: HeaderProps) => {
             </li>
             <li className="user-block__item">
               <div onClick={() => {
-                dispatch(logout());
+                dispatch(logout()).then(() => navigate(AppRoute.SignIn));
               }} className="user-block__link"
               >
                 Sign out

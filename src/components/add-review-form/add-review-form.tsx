@@ -3,6 +3,7 @@ import {postComment} from '../../store/thunk.ts';
 import {useAppDispatch} from '../../hooks/redux-typed-hooks.ts';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {AppRoute} from '../../const.ts';
+import React from 'react';
 
 
 function AddReviewForm(): JSX.Element {
@@ -23,8 +24,10 @@ function AddReviewForm(): JSX.Element {
         rating: commentScore,
         comment: commentText,
       }
-    })).then(() => {
-      navigate(`${AppRoute.Films}/${id}?tab=reviews`);
+    })).then((value) => {
+      if (!('error' in value)) {
+        navigate(`${AppRoute.Films}/${id}?tab=reviews`);
+      }
     });
   };
 
@@ -35,10 +38,10 @@ function AddReviewForm(): JSX.Element {
           <div className="rating__stars">
             {Array.from(Array(10).keys()).map((rate) =>
               (
-                <>
+                <React.Fragment key={rate}>
                   <input className="rating__input" id={`star-${rate}`} type="radio" name="rating" value={rate} onChange={() => setCommentScore(10 - rate)}/>
                   <label className="rating__label" htmlFor={`star-${rate}`}>Rating {rate}</label>
-                </>
+                </React.Fragment>
               )
             )}
           </div>

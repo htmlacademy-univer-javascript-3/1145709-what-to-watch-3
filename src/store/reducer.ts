@@ -18,7 +18,7 @@ import {FilmComment} from '../types/film-comment.ts';
 
 export interface StoreSchema {
   films: FilmShallow[];
-  film?: Film;
+  film?: Film | null;
   similarFilms: FilmShallow[];
   filmComments: FilmComment[];
   filmsByGenre: FilmShallow[];

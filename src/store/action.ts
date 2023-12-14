@@ -17,7 +17,7 @@ export const setSimilarFilms = createAction('SET_SIMILAR_FILMS', (value: FilmSha
   payload: value,
 }));
 
-export const setFilm = createAction('SET_FILM', (value: Film) => ({
+export const setFilm = createAction('SET_FILM', (value: Film | undefined | null) => ({
   payload: value,
 }));
 

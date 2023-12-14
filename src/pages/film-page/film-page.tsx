@@ -1,4 +1,4 @@
-import {Link, useParams} from 'react-router-dom';
+import {Link, Navigate, useParams} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {FilmList} from '../../components/film-list/film-list';
 import {Footer} from '../../components/footer/footer';
@@ -10,7 +10,6 @@ import {useFilm} from '../../hooks/use-film.ts';
 import {Spinner} from '../../components/spinner/spinner.tsx';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {useEffect} from 'react';
-import {setIsFilmLoading} from '../../store/action.ts';
 import {getComments, getFilmById, getSimilarFilms} from '../../store/thunk.ts';
 
 function FilmPage(): JSX.Element {
@@ -21,7 +20,6 @@ function FilmPage(): JSX.Element {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(setIsFilmLoading(true));
     if (id !== undefined) {
       dispatch(getFilmById(id));
       dispatch(getComments(id));
@@ -31,6 +29,10 @@ function FilmPage(): JSX.Element {
 
   if (isFilmLoading || film === undefined) {
     return <Spinner/>;
+  }
+
+  if (film === null) {
+    return <Navigate to={AppRoute.NotFound}/>;
   }
 
   return (

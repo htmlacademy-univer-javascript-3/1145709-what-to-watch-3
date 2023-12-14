@@ -15,7 +15,7 @@ import {AuthData, AuthPost} from '../types/auth.ts';
 import {AuthorizationStatus} from '../const.ts';
 import {Film} from '../types/film.ts';
 import {FilmComment, PostCommentData} from '../types/film-comment.ts';
-import {setToken} from '../api.ts';
+import {setToken} from '../api/utils.ts';
 
 export enum APIRoute {
   Films = '/films',
@@ -45,11 +45,16 @@ export const getFilmById = createAsyncThunk<void, string, {
   extra: AxiosInstance;
 }>('getFilm', async (id, {dispatch, extra: api}) => {
   dispatch(setIsFilmLoading(true));
-  const response = await api.get<Film>(`${APIRoute.Films}/${id}`);
-  if (response.status === 200) {
-    dispatch(setFilm(response.data));
+  try {
+    const response = await api.get<Film>(`${APIRoute.Films}/${id}`);
+    if (response.status === 200) {
+      dispatch(setFilm(response.data));
+    }
+  } catch (e) {
+    dispatch(setFilm(null));
+  } finally {
+    dispatch(setIsFilmLoading(false));
   }
-  dispatch(setIsFilmLoading(false));
 });
 
 
@@ -82,11 +87,15 @@ export const getLoginData = createAsyncThunk<void, undefined, {
   state: StoreSchema;
   extra: AxiosInstance;
 }>('getLoginData', async (_, {dispatch, extra: api}) => {
-  const response = await api.get<AuthData>(APIRoute.Login);
-  if (response.status === 200) {
-    dispatch(setAuthStatus(AuthorizationStatus.Auth));
-    dispatch(setAuthData(response.data));
-    setToken(response.data.token);
+  try {
+    const response = await api.get<AuthData>(APIRoute.Login);
+    if (response.status === 200) {
+      dispatch(setAuthStatus(AuthorizationStatus.Auth));
+      dispatch(setAuthData(response.data));
+      setToken(response.data.token);
+    }
+  } catch (e) {
+    dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
   }
 });
 
