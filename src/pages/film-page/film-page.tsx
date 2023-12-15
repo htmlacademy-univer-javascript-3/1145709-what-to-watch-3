@@ -1,4 +1,4 @@
-import {Link, Navigate, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {FilmList} from '../../components/film-list/film-list';
 import {Footer} from '../../components/footer/footer';
@@ -10,29 +10,30 @@ import {useFilm} from '../../hooks/use-film.ts';
 import {Spinner} from '../../components/spinner/spinner.tsx';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {useEffect} from 'react';
-import {getComments, getFilmById, getSimilarFilms} from '../../store/thunk.ts';
+import {getComments, getFilmById, getSimilarFilms} from '../../store/thunks.ts';
 
 function FilmPage(): JSX.Element {
   const { film, similarFilms, isFilmLoading } = useFilm();
 
-  const isAuthenticated = useAppSelector((state) => state.isAuthenticated);
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const dispatch = useAppDispatch();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id !== undefined) {
-      dispatch(getFilmById(id));
+      dispatch(getFilmById(id)).then((response) => {
+        if ('error' in response) {
+          navigate(AppRoute.NotFound);
+        }
+      });
       dispatch(getComments(id));
       dispatch(getSimilarFilms(id));
     }
-  }, [dispatch, id]);
+  }, [navigate, dispatch, id]);
 
-  if (isFilmLoading || film === undefined) {
+  if (isFilmLoading || film === null) {
     return <Spinner/>;
-  }
-
-  if (film === null) {
-    return <Navigate to={AppRoute.NotFound}/>;
   }
 
   return (

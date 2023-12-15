@@ -2,7 +2,7 @@ import {AppRoute} from '../../const';
 import {Link, useNavigate} from 'react-router-dom';
 import {Film} from '../../types/film';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
-import {logout} from '../../store/thunk.ts';
+import {logout} from '../../store/thunks.ts';
 
 interface HeaderProps {
   showBreadcrumbs?: boolean;
@@ -11,19 +11,19 @@ interface HeaderProps {
 
 export const Header = (props: HeaderProps) => {
   const {showBreadcrumbs = false, film} = props;
-  const isAuth = useAppSelector((state) => state.isAuthenticated);
-  const authData = useAppSelector((state) => state.authData);
+  const isAuth = useAppSelector((state) => state.auth.isAuthenticated);
+  const authData = useAppSelector((state) => state.auth.authData);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   return (
     <header className="page-header">
       <div className="logo">
-        <a href={AppRoute.Root} className="logo__link">
+        <Link to={AppRoute.Root} className="logo__link">
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
           <span className="logo__letter logo__letter--3">W</span>
-        </a>
+        </Link>
       </div>
 
       {showBreadcrumbs && film &&

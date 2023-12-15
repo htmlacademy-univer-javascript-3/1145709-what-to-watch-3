@@ -1,5 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
-import {FilmShallow} from '../types/filmShallow.ts';
+import {FilmShallow} from '../types/film-shallow.ts';
 import {AuthorizationStatus, DefaultMoreCounterValue} from '../const.ts';
 import {AuthData} from '../types/auth.ts';
 import {Film} from '../types/film.ts';

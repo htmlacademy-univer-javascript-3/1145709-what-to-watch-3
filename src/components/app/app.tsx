@@ -10,20 +10,22 @@ import {PrivateRoute} from '../private-route/private-route.tsx';
 import {AppRoute} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {useEffect} from 'react';
-import {getAllFilms, getLoginData} from '../../store/thunk.ts';
+import {getAllFilms, getLoginData, getPromoFilm} from '../../store/thunks.ts';
 import {Spinner} from '../spinner/spinner.tsx';
 
 function App(): JSX.Element {
-  const isLoading = useAppSelector((state) => state.isFilmListLoading);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const isLoading = useAppSelector((state) => state.main.isFilmListLoading);
+  const isAuthLoading = useAppSelector((state) => state.auth.isAuthLoading);
+  const authStatus = useAppSelector((state) => state.auth.authorizationStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getAllFilms());
     dispatch(getLoginData());
+    dispatch(getPromoFilm());
   }, [dispatch]);
 
-  if (isLoading) {
+  if (isLoading || isAuthLoading) {
     return <Spinner/>;
   }
 
@@ -31,7 +33,7 @@ function App(): JSX.Element {
     <Routes>
       <Route path={AppRoute.Root}>
         <Route index element={
-          <MainPage promoFilmGenre={'Drama'} promoFilmName={'The Grand Budapest Hotel'} promoFilmReleaseDate={new Date(2014, 0)}/>
+          <MainPage/>
         }
         />
         <Route path={AppRoute.SignIn} element={<SignInPage/>}/>

@@ -3,7 +3,6 @@ import {Film} from './types/film';
 export enum AuthorizationStatus {
   Auth= 'AUTH',
   NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN'
 }
 
 export enum AppRoute {
@@ -28,3 +27,12 @@ export interface CommonDescriptionProps {
 
 export const DefaultFilmGenre = 'All genres';
 export const DefaultMoreCounterValue = 8;
+
+export enum APIRoute {
+  Films = '/films',
+  FilmsSimilar = '/similar',
+  Login = '/login',
+  Logout = '/logout',
+  Comments = '/comments',
+  Promo = '/promo',
+}
