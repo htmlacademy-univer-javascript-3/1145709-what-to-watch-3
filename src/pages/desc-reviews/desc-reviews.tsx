@@ -17,7 +17,7 @@ const ReviewComponent = ({review}: { review: FilmComment }) => (
 );
 
 export const DescReviews = () => {
-  const comments = useAppSelector((state) => state.filmComments);
+  const comments = useAppSelector((state) => state.film.filmComments);
   const orderedReviews = [...comments].sort((comment1, comment2) => comment2.rating - comment1.rating);
   const reviewsCount = comments.length;
 

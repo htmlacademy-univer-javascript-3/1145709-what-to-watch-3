@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
-import {FilmShallow} from '../../types/filmShallow.ts';
+import {FilmShallow} from '../../types/film-shallow.ts';
 
 function VideoPlayer({film}: {film: FilmShallow}) {
   const videoRef = useRef<HTMLVideoElement | null>(null);

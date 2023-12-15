@@ -1,12 +1,10 @@
 import FilmCard from '../film-card/film-card';
-import {useEffect, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import {GenreList} from '../genre-list/genre-list.tsx';
-import {DefaultMoreCounterValue} from '../../const.ts';
+import {DefaultFilmGenre, DefaultMoreCounterValue} from '../../const.ts';
 import {ShowMore} from '../show-more/show-more.tsx';
-import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
-import {StoreSchema} from '../../store/reducer.ts';
-import {resetMoreCounter} from '../../store/action.ts';
-import {FilmShallow} from '../../types/filmShallow.ts';
+import {FilmShallow} from '../../types/film-shallow.ts';
+import {useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 
 
 interface FilmListProps {
@@ -23,12 +21,13 @@ interface FilmListProps {
 export function FilmList(props: FilmListProps) {
   const {films, title, limit = DefaultMoreCounterValue, showGenres = true, showTitle = false, showMore = limit < films.length, className} = props;
   const [, setCurrentFilm] = useState({});
-  const moreCounter = useAppSelector((state: StoreSchema) => state.moreCounter);
-  const dispatch = useAppDispatch();
+  const [moreCounter, setMoreCounter] = useState(DefaultMoreCounterValue);
+  const currentGenre = useAppSelector((state) => state.main.genre);
+  const filteredFilms = useMemo(() => films.filter((film) => film.genre === currentGenre || currentGenre === DefaultFilmGenre), [films, currentGenre]);
 
   useEffect(() => {
-    dispatch(resetMoreCounter());
-  }, [dispatch]);
+    setMoreCounter(DefaultMoreCounterValue);
+  }, [currentGenre]);
 
   return (
     <section className={className ?? 'catalog'}>
@@ -36,14 +35,13 @@ export function FilmList(props: FilmListProps) {
 
       {showGenres && <GenreList/>}
 
-
       <div className="catalog__films-list">
-        {films.slice(0, moreCounter).map(
+        {filteredFilms.slice(0, moreCounter).map(
           (film: FilmShallow) => <FilmCard film={film} key={film.id} onMouseEnter={() => setCurrentFilm(film)}/>
         )}
       </div>
 
-      {showMore && moreCounter < films.length && <ShowMore/>}
+      {showMore && moreCounter < filteredFilms.length && <ShowMore addMoreCounter={(count) => setMoreCounter(moreCounter + count)}/>}
     </section>
   );
 }

@@ -1,5 +1,5 @@
 import {FormEvent, useState} from 'react';
-import {postComment} from '../../store/thunk.ts';
+import {postComment} from '../../store/thunks.ts';
 import {useAppDispatch} from '../../hooks/redux-typed-hooks.ts';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {AppRoute} from '../../const.ts';
@@ -8,7 +8,7 @@ import React from 'react';
 
 function AddReviewForm(): JSX.Element {
   const [commentText, setCommentText] = useState('');
-  const [commentScore, setCommentScore] = useState(1);
+  const [commentScore, setCommentScore] = useState(10);
   const dispatch = useAppDispatch();
   const {id} = useParams();
   const navigate = useNavigate();

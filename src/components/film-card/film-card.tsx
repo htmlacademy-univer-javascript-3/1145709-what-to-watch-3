@@ -2,12 +2,11 @@ import {HTMLAttributes} from 'react';
 import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 import VideoPlayer from '../video-player/video-player';
-import {FilmShallow} from '../../types/filmShallow.ts';
+import {FilmShallow} from '../../types/film-shallow.ts';
 
 interface ArticleProps extends HTMLAttributes<HTMLDivElement> {
   film: FilmShallow;
 }
-
 
 function FilmCard(props: ArticleProps): JSX.Element {
   const {film, ...restProps } = props;

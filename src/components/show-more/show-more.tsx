@@ -1,13 +1,11 @@
-import {incMoreCounter} from '../../store/action.ts';
-import {useAppDispatch} from '../../hooks/redux-typed-hooks.ts';
+import {DefaultMoreCounterValue} from '../../const.ts';
 
+interface ShowMoreProps {
+  addMoreCounter: (count: number) => void;
+}
 
-export const ShowMore = () => {
-  const dispatch = useAppDispatch();
-
-  return (
-    <div className="catalog__more">
-      <button className="catalog__button" type="button" onClick={() => dispatch(incMoreCounter())}>Show more</button>
-    </div>
-  );
-};
+export const ShowMore = (props: ShowMoreProps) => (
+  <div className="catalog__more">
+    <button className="catalog__button" type="button" onClick={() => props.addMoreCounter(DefaultMoreCounterValue)}>Show more</button>
+  </div>
+);

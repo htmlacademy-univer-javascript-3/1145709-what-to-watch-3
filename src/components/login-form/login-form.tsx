@@ -1,12 +1,12 @@
 import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
-import {postLoginData} from '../../store/thunk.ts';
+import {postLoginData} from '../../store/thunks.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {useNavigate} from 'react-router-dom';
 import {AppRoute} from '../../const.ts';
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();
-  const isAuthenticated = useAppSelector((state) => state.isAuthenticated);
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -34,8 +34,10 @@ export const LoginForm = () => {
 
   const submitAction = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(postLoginData(formData)).then(() => {
-      setIsIncorrectData(!isAuthenticated);
+    dispatch(postLoginData(formData)).then((response) => {
+      if ('error' in response) {
+        setIsIncorrectData(true);
+      }
     });
   };
 
