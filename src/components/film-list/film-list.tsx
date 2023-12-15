@@ -1,5 +1,5 @@
 import FilmCard from '../film-card/film-card';
-import {useEffect, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import {GenreList} from '../genre-list/genre-list.tsx';
 import {DefaultFilmGenre, DefaultMoreCounterValue} from '../../const.ts';
 import {ShowMore} from '../show-more/show-more.tsx';
@@ -23,7 +23,7 @@ export function FilmList(props: FilmListProps) {
   const [, setCurrentFilm] = useState({});
   const [moreCounter, setMoreCounter] = useState(DefaultMoreCounterValue);
   const currentGenre = useAppSelector((state) => state.main.genre);
-  const filteredFilms = films.filter((film) => film.genre === currentGenre || currentGenre === DefaultFilmGenre);
+  const filteredFilms = useMemo(() => films.filter((film) => film.genre === currentGenre || currentGenre === DefaultFilmGenre), [films, currentGenre]);
 
   useEffect(() => {
     setMoreCounter(DefaultMoreCounterValue);

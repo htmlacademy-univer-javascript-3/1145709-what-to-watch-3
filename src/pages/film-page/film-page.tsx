@@ -10,23 +10,19 @@ import {useFilm} from '../../hooks/use-film.ts';
 import {Spinner} from '../../components/spinner/spinner.tsx';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {useEffect} from 'react';
-import {getComments, getFilmById, getSimilarFilms} from '../../store/thunks.ts';
+import {getComments, getSimilarFilms} from '../../store/thunks.ts';
 
 function FilmPage(): JSX.Element {
-  const { film, similarFilms, isFilmLoading } = useFilm();
+  const { film, isFilmLoading } = useFilm();
 
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const similarFilms = useAppSelector((state) => state.film.similarFilms);
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (id !== undefined) {
-      dispatch(getFilmById(id)).then((response) => {
-        if ('error' in response) {
-          navigate(AppRoute.NotFound);
-        }
-      });
       dispatch(getComments(id));
       dispatch(getSimilarFilms(id));
     }

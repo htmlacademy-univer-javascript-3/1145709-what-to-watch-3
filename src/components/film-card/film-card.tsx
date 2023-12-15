@@ -8,7 +8,6 @@ interface ArticleProps extends HTMLAttributes<HTMLDivElement> {
   film: FilmShallow;
 }
 
-
 function FilmCard(props: ArticleProps): JSX.Element {
   const {film, ...restProps } = props;
 

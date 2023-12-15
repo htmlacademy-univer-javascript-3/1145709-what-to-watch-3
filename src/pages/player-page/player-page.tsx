@@ -1,26 +1,8 @@
-import {useNavigate, useParams} from 'react-router-dom';
-import {AppRoute} from '../../const';
 import {useFilm} from '../../hooks/use-film';
-import {useEffect} from 'react';
-import {getFilmById} from '../../store/thunks.ts';
-import {useAppDispatch} from '../../hooks/redux-typed-hooks.ts';
 import {Spinner} from '../../components/spinner/spinner.tsx';
 
 function PlayerPage(): JSX.Element {
   const { isFilmLoading, film } = useFilm();
-  const dispatch = useAppDispatch();
-  const {id } = useParams();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (id !== undefined) {
-      dispatch(getFilmById(id)).then((response) => {
-        if ('error' in response) {
-          navigate(AppRoute.NotFound);
-        }
-      });
-    }
-  }, [navigate, dispatch, id]);
 
   if (isFilmLoading || film === null) {
     return <Spinner/>;
