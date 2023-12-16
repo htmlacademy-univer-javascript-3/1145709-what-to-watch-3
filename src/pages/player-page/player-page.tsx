@@ -41,12 +41,14 @@ function PlayerPage(): JSX.Element {
   };
 
   useEffect(() => {
-    if (isFullScreen){
-      videoRef.current?.requestFullscreen();
-    } else {
-      document.exitFullscreen();
+    if (!isVideoLoading) {
+      if (isFullScreen) {
+        videoRef.current?.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
     }
-  }, [isFullScreen]);
+  }, [isFullScreen, isVideoLoading]);
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;

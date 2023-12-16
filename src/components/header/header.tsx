@@ -3,21 +3,24 @@ import {Link, useNavigate} from 'react-router-dom';
 import {Film} from '../../types/film';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {logout} from '../../store/thunks.ts';
+import {PropsWithChildren} from 'react';
 
 interface HeaderProps {
   showBreadcrumbs?: boolean;
   film?: Film;
+  headerClassName?: string;
 }
 
-export const Header = (props: HeaderProps) => {
+export const Header = (props: PropsWithChildren<HeaderProps>) => {
   const {showBreadcrumbs = false, film} = props;
   const isAuth = useAppSelector((state) => state.user.isAuthenticated);
   const authData = useAppSelector((state) => state.user.authData);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const headerClasses = props.headerClassName;
 
   return (
-    <header className="page-header">
+    <header className={`page-header ${headerClasses ?? ''}`}>
       <div className="logo">
         <Link to={AppRoute.Root} className="logo__link">
           <span className="logo__letter logo__letter--1">W</span>
@@ -38,13 +41,17 @@ export const Header = (props: HeaderProps) => {
           </ul>
         </nav>}
 
+      {props.children}
+
       <ul className="user-block">
         {isAuth ?
           <>
             <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src={authData?.avatarUrl} alt={authData?.name} width="63" height="63"/>
-              </div>
+              <Link to={AppRoute.MyList}>
+                <div className="user-block__avatar">
+                  <img src={authData?.avatarUrl} alt={authData?.name} width="63" height="63"/>
+                </div>
+              </Link>
             </li>
             <li className="user-block__item">
               <div onClick={() => {

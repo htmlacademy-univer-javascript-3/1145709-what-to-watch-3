@@ -9,3 +9,8 @@ export interface AuthPost {
   email: string;
   password: string;
 }
+
+export interface ChangeFavoriteFilmsData {
+  filmId: string;
+  status: 0 | 1;
+}

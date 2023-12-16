@@ -54,7 +54,7 @@ function FilmPage(): JSX.Element {
 
               <div className="film-card__buttons">
                 <PlayButton id={film.id}/>
-                <MyListButton/>
+                <MyListButton film={film}/>
                 {isAuthenticated && <Link to={`${AppRoute.Films}/${film.id}/reviews`} className="btn film-card__button">Add review</Link>}
               </div>
             </div>

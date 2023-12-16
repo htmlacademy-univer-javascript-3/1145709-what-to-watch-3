@@ -1,6 +1,6 @@
 import {store} from '../store/store.ts';
 import {AuthorizationStatus} from '../const.ts';
-import {AuthData} from './auth.ts';
+import {AuthData} from './user.ts';
 import {SerializedError} from '@reduxjs/toolkit';
 import {FilmShallow} from './film-shallow.ts';
 import {Film} from './film.ts';
@@ -27,6 +27,8 @@ export interface UserState {
   isAuthenticated: boolean;
   error: SerializedError | null;
   isAuthLoading: boolean;
+  favoriteFilms: FilmShallow[];
+  favoriteFilmsCount: number | null;
 }
 
 export type StoreSchema = ReturnType<typeof store.getState>;
