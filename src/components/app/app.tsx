@@ -11,7 +11,7 @@ import {AppRoute} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {useEffect} from 'react';
 import {getAllFilms, getLoginData, getPromoFilm} from '../../store/thunks.ts';
-import {Spinner} from '../spinner/spinner.tsx';
+import {LoadingMessage} from '../loading-messsage/loading-message.tsx';
 
 function App(): JSX.Element {
   const isLoading = useAppSelector((state) => state.main.isFilmListLoading);
@@ -26,7 +26,7 @@ function App(): JSX.Element {
   }, [dispatch]);
 
   if (isLoading || isAuthLoading) {
-    return <Spinner/>;
+    return <LoadingMessage/>;
   }
 
   return (

@@ -1,7 +1,7 @@
 import {Header} from '../header/header.tsx';
 import {Footer} from '../footer/footer.tsx';
 
-export const Spinner = () => (
+export const LoadingMessage = () => (
   <div className="user-page">
     <div>
       <Header/>
