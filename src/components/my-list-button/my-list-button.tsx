@@ -1,6 +1,6 @@
 import {FilmPromo} from '../../types/film-promo.ts';
 import {Film} from '../../types/film.ts';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {decrementFavoriteFilmsCount, incrementFavoriteFilmsCount} from '../../store/user/user-slice.ts';
 import {changeFavoriteFilms} from '../../store/thunks.ts';
@@ -10,13 +10,17 @@ import {APIRoute} from '../../const.ts';
 interface MyListButton {
   film: Film | FilmPromo;
 }
-export const MyListButton = (props: MyListButton) => {
+const MyListButton = (props: MyListButton) => {
   const {film} = props;
   const [isFavorite, setIsFavorite] = useState(film.isFavorite ?? false);
   const favoriteFilmsCount = useAppSelector((state) => state.user.favoriteFilmsCount);
   const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsFavorite(film.isFavorite ?? false);
+  }, [film.isFavorite]);
   const handleMyListButtonClick = () => {
     if (isAuthenticated) {
       setIsFavorite(!isFavorite);
@@ -42,3 +46,5 @@ export const MyListButton = (props: MyListButton) => {
     </button>
   );
 };
+
+export default MyListButton;

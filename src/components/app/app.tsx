@@ -30,6 +30,7 @@ function App(): JSX.Element {
     if (isAuthenticated) {
       dispatch(getFavoriteFilms());
     }
+    dispatch(getPromoFilm());
   }, [dispatch, isAuthenticated]);
 
   if (isLoading || isAuthLoading) {

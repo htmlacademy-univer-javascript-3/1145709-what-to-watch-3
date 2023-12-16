@@ -2,7 +2,7 @@ import {FilmList} from '../../components/film-list/film-list';
 import {Footer} from '../../components/footer/footer';
 import {Header} from '../../components/header/header';
 import {useAppSelector} from '../../hooks/redux-typed-hooks.ts';
-import {MyListButton} from '../../components/my-list-button/my-list-button.tsx';
+import MyListButton from '../../components/my-list-button/my-list-button.tsx';
 import {PlayButton} from '../../components/play-button/play-button.tsx';
 import {LoadingMessage} from '../../components/loading-messsage/loading-message.tsx';
 

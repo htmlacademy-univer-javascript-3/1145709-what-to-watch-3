@@ -4,7 +4,7 @@ import {FilmList} from '../../components/film-list/film-list';
 import {Footer} from '../../components/footer/footer';
 import {Header} from '../../components/header/header';
 import FilmDesc from '../../components/film-desc/film-desc';
-import {MyListButton} from '../../components/my-list-button/my-list-button.tsx';
+import MyListButton from '../../components/my-list-button/my-list-button.tsx';
 import {PlayButton} from '../../components/play-button/play-button.tsx';
 import {useFilm} from '../../hooks/use-film.ts';
 import {LoadingMessage} from '../../components/loading-messsage/loading-message.tsx';
