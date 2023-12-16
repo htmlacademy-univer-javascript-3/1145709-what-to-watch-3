@@ -15,8 +15,8 @@ import {LoadingMessage} from '../loading-messsage/loading-message.tsx';
 
 function App(): JSX.Element {
   const isLoading = useAppSelector((state) => state.main.isFilmListLoading);
-  const isAuthLoading = useAppSelector((state) => state.auth.isAuthLoading);
-  const authStatus = useAppSelector((state) => state.auth.authorizationStatus);
+  const isAuthLoading = useAppSelector((state) => state.user.isAuthLoading);
+  const authStatus = useAppSelector((state) => state.user.authorizationStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

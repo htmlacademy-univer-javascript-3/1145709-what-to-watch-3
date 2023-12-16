@@ -11,8 +11,8 @@ interface HeaderProps {
 
 export const Header = (props: HeaderProps) => {
   const {showBreadcrumbs = false, film} = props;
-  const isAuth = useAppSelector((state) => state.auth.isAuthenticated);
-  const authData = useAppSelector((state) => state.auth.authData);
+  const isAuth = useAppSelector((state) => state.user.isAuthenticated);
+  const authData = useAppSelector((state) => state.user.authData);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

@@ -21,7 +21,7 @@ export interface MainState {
   isFilmListLoading: boolean;
   error: SerializedError | null;
 }
-export interface AuthState {
+export interface UserState {
   authorizationStatus: AuthorizationStatus;
   authData: AuthData | null;
   isAuthenticated: boolean;

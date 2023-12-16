@@ -15,7 +15,7 @@ import {getComments, getSimilarFilms} from '../../store/thunks.ts';
 function FilmPage(): JSX.Element {
   const { film, isFilmLoading } = useFilm();
 
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
   const similarFilms = useAppSelector((state) => state.film.similarFilms);
   const dispatch = useAppDispatch();
   const { id } = useParams();

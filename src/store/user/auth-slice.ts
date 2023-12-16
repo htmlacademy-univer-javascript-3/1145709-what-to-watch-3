@@ -1,9 +1,9 @@
 import {AuthorizationStatus} from '../../const.ts';
 import {createSlice} from '@reduxjs/toolkit';
 import {getLoginData, logout, postLoginData} from '../thunks.ts';
-import {AuthState} from '../../types/state.ts';
+import {UserState} from '../../types/state.ts';
 
-const initialState: AuthState = {
+const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.NoAuth,
   isAuthenticated: false,
   error: null,
@@ -12,7 +12,7 @@ const initialState: AuthState = {
 };
 
 export const authSlice = createSlice({
-  name: 'auth',
+  name: 'user',
   initialState,
   reducers: {},
   extraReducers(builder){

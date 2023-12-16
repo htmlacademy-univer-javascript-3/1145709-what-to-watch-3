@@ -6,7 +6,7 @@ import {AppRoute} from '../../const.ts';
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
