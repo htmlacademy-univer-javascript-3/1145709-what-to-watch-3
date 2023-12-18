@@ -33,7 +33,7 @@ export function FilmList(props: FilmListProps) {
     <section className={className ?? 'catalog'}>
       <h2 className={showTitle ? 'catalog__title' : 'catalog__title visually-hidden'}>{title}</h2>
 
-      {showGenres && <GenreList/>}
+      {showGenres && <GenreList films={films}/>}
 
       <div className="catalog__films-list">
         {filteredFilms.slice(0, moreCounter).map(

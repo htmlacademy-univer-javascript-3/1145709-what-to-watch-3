@@ -4,10 +4,10 @@ import {FilmList} from '../../components/film-list/film-list';
 import {Footer} from '../../components/footer/footer';
 import {Header} from '../../components/header/header';
 import FilmDesc from '../../components/film-desc/film-desc';
-import {MyListButton} from '../../components/my-list-button/my-list-button.tsx';
+import MyListButton from '../../components/my-list-button/my-list-button.tsx';
 import {PlayButton} from '../../components/play-button/play-button.tsx';
 import {useFilm} from '../../hooks/use-film.ts';
-import {Spinner} from '../../components/spinner/spinner.tsx';
+import {LoadingMessage} from '../../components/loading-messsage/loading-message.tsx';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {useEffect} from 'react';
 import {getComments, getSimilarFilms} from '../../store/thunks.ts';
@@ -15,7 +15,7 @@ import {getComments, getSimilarFilms} from '../../store/thunks.ts';
 function FilmPage(): JSX.Element {
   const { film, isFilmLoading } = useFilm();
 
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
   const similarFilms = useAppSelector((state) => state.film.similarFilms);
   const dispatch = useAppDispatch();
   const { id } = useParams();
@@ -29,7 +29,7 @@ function FilmPage(): JSX.Element {
   }, [navigate, dispatch, id]);
 
   if (isFilmLoading || film === null) {
-    return <Spinner/>;
+    return <LoadingMessage/>;
   }
 
   return (
@@ -53,8 +53,8 @@ function FilmPage(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <PlayButton/>
-                <MyListButton/>
+                <PlayButton id={film.id}/>
+                <MyListButton film={film}/>
                 {isAuthenticated && <Link to={`${AppRoute.Films}/${film.id}/reviews`} className="btn film-card__button">Add review</Link>}
               </div>
             </div>

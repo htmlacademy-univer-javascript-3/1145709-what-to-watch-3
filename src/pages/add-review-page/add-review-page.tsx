@@ -1,13 +1,13 @@
 import {useFilm} from '../../hooks/use-film';
 import {Header} from '../../components/header/header';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
-import {Spinner} from '../../components/spinner/spinner.tsx';
+import {LoadingMessage} from '../../components/loading-messsage/loading-message.tsx';
 
 function AddReviewPage(): JSX.Element {
   const { isFilmLoading, film } = useFilm();
 
   if (isFilmLoading || film === null) {
-    return <Spinner/>;
+    return <LoadingMessage/>;
   }
 
   return (

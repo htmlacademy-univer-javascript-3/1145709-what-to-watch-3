@@ -2,16 +2,16 @@ import {FilmList} from '../../components/film-list/film-list';
 import {Footer} from '../../components/footer/footer';
 import {Header} from '../../components/header/header';
 import {useAppSelector} from '../../hooks/redux-typed-hooks.ts';
-import {MyListButton} from '../../components/my-list-button/my-list-button.tsx';
+import MyListButton from '../../components/my-list-button/my-list-button.tsx';
 import {PlayButton} from '../../components/play-button/play-button.tsx';
-import {Spinner} from '../../components/spinner/spinner.tsx';
+import {LoadingMessage} from '../../components/loading-messsage/loading-message.tsx';
 
 function MainPage(): JSX.Element {
   const promoFilm = useAppSelector((state) => state.main.promoFilm);
   const films = useAppSelector((state) => state.main.films);
 
   if (promoFilm === null){
-    return <Spinner/>;
+    return <LoadingMessage/>;
   }
 
   return (
@@ -41,8 +41,8 @@ function MainPage(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <PlayButton/>
-                <MyListButton/>
+                <PlayButton id={promoFilm.id}/>
+                <MyListButton film={promoFilm}/>
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import {createAction} from '@reduxjs/toolkit';
 import {FilmShallow} from '../types/film-shallow.ts';
 import {AuthorizationStatus, DefaultMoreCounterValue} from '../const.ts';
-import {AuthData} from '../types/auth.ts';
+import {AuthData} from '../types/user.ts';
 import {Film} from '../types/film.ts';
 import {FilmComment} from '../types/film-comment.ts';
 export const filterFilmsByGenre = createAction('GET_FILMS_BY_GENRE');

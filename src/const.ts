@@ -30,6 +30,7 @@ export const DefaultMoreCounterValue = 8;
 
 export enum APIRoute {
   Films = '/films',
+  Favorite = '/favorite',
   FilmsSimilar = '/similar',
   Login = '/login',
   Logout = '/logout',

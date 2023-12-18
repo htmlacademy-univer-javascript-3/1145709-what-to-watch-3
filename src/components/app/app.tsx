@@ -10,13 +10,14 @@ import {PrivateRoute} from '../private-route/private-route.tsx';
 import {AppRoute} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {useEffect} from 'react';
-import {getAllFilms, getLoginData, getPromoFilm} from '../../store/thunks.ts';
-import {Spinner} from '../spinner/spinner.tsx';
+import {getAllFilms, getFavoriteFilms, getLoginData, getPromoFilm} from '../../store/thunks.ts';
+import {LoadingMessage} from '../loading-messsage/loading-message.tsx';
 
 function App(): JSX.Element {
   const isLoading = useAppSelector((state) => state.main.isFilmListLoading);
-  const isAuthLoading = useAppSelector((state) => state.auth.isAuthLoading);
-  const authStatus = useAppSelector((state) => state.auth.authorizationStatus);
+  const isAuthLoading = useAppSelector((state) => state.user.isAuthLoading);
+  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
+  const authStatus = useAppSelector((state) => state.user.authorizationStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -25,8 +26,15 @@ function App(): JSX.Element {
     dispatch(getPromoFilm());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(getFavoriteFilms());
+    }
+    dispatch(getPromoFilm());
+  }, [dispatch, isAuthenticated]);
+
   if (isLoading || isAuthLoading) {
-    return <Spinner/>;
+    return <LoadingMessage/>;
   }
 
   return (

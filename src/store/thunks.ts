@@ -2,7 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch} from '../hooks/redux-typed-hooks.ts';
 import {AxiosError, AxiosInstance} from 'axios';
 import {FilmShallow} from '../types/film-shallow.ts';
-import {AuthData, AuthPost} from '../types/auth.ts';
+import {AuthData, AuthPost, ChangeFavoriteFilmsData} from '../types/user.ts';
 import {Film} from '../types/film.ts';
 import {FilmComment, PostCommentData} from '../types/film-comment.ts';
 import {setToken} from '../api/utils.ts';
@@ -123,4 +123,23 @@ export const getPromoFilm = createAsyncThunk<FilmPromo, undefined, {
 }>('promoFilm', async (_, {extra: api}) => {
   const response = await api.get<FilmPromo>(APIRoute.Promo);
   return response.data;
+});
+
+
+export const getFavoriteFilms = createAsyncThunk<FilmShallow[], undefined, {
+  dispatch: AppDispatch;
+  state: StoreSchema;
+  extra: AxiosInstance;
+}>('favoriteFilms', async (_, {extra: api}) => {
+  const response = await api.get<FilmShallow[]>(APIRoute.Favorite);
+  return response.data;
+});
+
+
+export const changeFavoriteFilms = createAsyncThunk<void, ChangeFavoriteFilmsData, {
+  dispatch: AppDispatch;
+  state: StoreSchema;
+  extra: AxiosInstance;
+}>('changeFavoriteFilms', async (data, {extra: api}) => {
+  await api.post(`${APIRoute.Favorite}/${data.filmId}/${data.status}`);
 });
