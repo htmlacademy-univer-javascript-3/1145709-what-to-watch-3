@@ -22,11 +22,11 @@ function FilmPage(): JSX.Element {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (id !== undefined) {
+    if (id && film) {
       dispatch(getComments(id));
       dispatch(getSimilarFilms(id));
     }
-  }, [navigate, dispatch, id]);
+  }, [navigate, dispatch, id, film]);
 
   if (isFilmLoading || film === null) {
     return <LoadingMessage/>;

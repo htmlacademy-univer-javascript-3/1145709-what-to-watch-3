@@ -1,6 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {reducer} from './reducer.ts';
-import {getAxiosObject} from '../api/api.ts';
+import {createAPI} from '../api/api.ts';
 
 
 export const store = configureStore({
@@ -8,7 +8,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {
-        extraArgument: getAxiosObject()
+        extraArgument: createAPI()
       }
     })
 });

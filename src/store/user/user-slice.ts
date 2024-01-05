@@ -6,7 +6,6 @@ import {UserState} from '../../types/state.ts';
 const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.NoAuth,
   isAuthenticated: false,
-  error: null,
   authData: null,
   isAuthLoading: false,
   favoriteFilms: [],
@@ -34,29 +33,26 @@ export const userSlice = createSlice({
         state.authData = action.payload;
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.isAuthenticated = true;
-        state.error = null;
       })
-      .addCase(postLoginData.rejected, (state, action) => {
-        state.error = action.error;
+      .addCase(postLoginData.rejected, (state) => {
+        state.authData = null;
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
       .addCase(getLoginData.fulfilled, (state, action) => {
         state.authData = action.payload;
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.isAuthenticated = true;
         state.isAuthLoading = false;
-        state.error = null;
       })
       .addCase(getLoginData.pending, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.isAuthenticated = false;
         state.isAuthLoading = true;
-        state.error = null;
       })
-      .addCase(getLoginData.rejected, (state, action) => {
+      .addCase(getLoginData.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.isAuthenticated = false;
         state.isAuthLoading = false;
-        state.error = action.error;
       })
       .addCase(logout.fulfilled, (state) => {
         state.authData = null;
