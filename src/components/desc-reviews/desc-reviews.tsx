@@ -1,18 +1,18 @@
 import {FilmComment} from '../../types/film-comment.ts';
 import {useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 
-const ReviewComponent = ({review}: { review: FilmComment }) => (
+export const ReviewComponent = ({review}: { review: FilmComment }) => (
   <div className="review">
     <blockquote className="review__quote">
-      <p className="review__text">{review.comment}</p>
+      <p className="review__text" data-testid={'comment'}>{review.comment}</p>
 
       <footer className="review__details">
-        <cite className="review__author">{review.user}</cite>
-        <time className="review__date" dateTime="2016-12-24">{new Date(review.date).toDateString()}</time>
+        <cite className="review__author" data-testid={'user'}>{review.user}</cite>
+        <time className="review__date" dateTime="2016-12-24" data-testid={'date'}>{new Date(review.date).toDateString()}</time>
       </footer>
     </blockquote>
 
-    <div className="review__rating">{review.rating}</div>
+    <div className="review__rating" data-testid={'rating'}>{review.rating}</div>
   </div>
 );
 
@@ -23,12 +23,12 @@ export const DescReviews = () => {
 
   return (
     <div className="film-card__reviews film-card__row">
-      <div className="film-card__reviews-col">
+      <div className="film-card__reviews-col" data-testid={'col1'}>
         {orderedReviews.slice(0, reviewsCount / 2 + reviewsCount % 2).map((comment) =>
           <ReviewComponent key={comment.id} review={comment}/>
         )}
       </div>
-      <div className="film-card__reviews-col">
+      <div className="film-card__reviews-col" data-testid={'col2'}>
         {orderedReviews.slice(reviewsCount / 2 + reviewsCount % 2, reviewsCount).map((review) =>
           <ReviewComponent key={review.id} review={review}/>
         )}

@@ -1,12 +1,11 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch} from '../hooks/redux-typed-hooks.ts';
-import {AxiosError, AxiosInstance} from 'axios';
+import {AxiosInstance} from 'axios';
 import {FilmShallow} from '../types/film-shallow.ts';
 import {AuthData, AuthPost, ChangeFavoriteFilmsData} from '../types/user.ts';
 import {Film} from '../types/film.ts';
 import {FilmComment, PostCommentData} from '../types/film-comment.ts';
 import {setToken} from '../api/utils.ts';
-import {ErrorDetailsMessage} from '../types/response-error-type.ts';
 import {StoreSchema} from '../types/state.ts';
 import {APIRoute} from '../const.ts';
 import {FilmPromo} from '../types/film-promo.ts';
@@ -25,15 +24,9 @@ export const getFilmById = createAsyncThunk<Film, string, {
   dispatch: AppDispatch;
   state: StoreSchema;
   extra: AxiosInstance;
-  rejectWithValue: ErrorDetailsMessage;
-}>('getFilmById', async (id, {extra: api, rejectWithValue}) => {
-  try {
-    const response = await api.get<Film>(`${APIRoute.Films}/${id}`);
-    return response.data;
-  } catch (e) {
-    const err = e as AxiosError<ErrorDetailsMessage>;
-    throw rejectWithValue(err.response!.data);
-  }
+}>('getFilmById', async (id, {extra: api}) => {
+  const response = await api.get<Film>(`${APIRoute.Films}/${id}`);
+  return response.data;
 });
 
 
@@ -61,47 +54,29 @@ export const getLoginData = createAsyncThunk<AuthData, undefined, {
   dispatch: AppDispatch;
   state: StoreSchema;
   extra: AxiosInstance;
-  rejectWithValue: ErrorDetailsMessage;
-}>('getLoginData', async (_, {extra: api, rejectWithValue}) => {
-  try {
-    const response = await api.get<AuthData>(APIRoute.Login);
-    setToken(response.data.token);
-    return response.data;
-  } catch (e) {
-    const err = e as AxiosError<ErrorDetailsMessage>;
-    throw rejectWithValue(err.response!.data);
-  }
+}>('getLoginData', async (_, {extra: api}) => {
+  const response = await api.get<AuthData>(APIRoute.Login);
+  setToken(response.data.token);
+  return response.data;
 });
 
 export const postLoginData = createAsyncThunk<AuthData, AuthPost, {
   dispatch: AppDispatch;
   state: StoreSchema;
   extra: AxiosInstance;
-  rejectWithValue: ErrorDetailsMessage;
-}>('postLoginData', async (data, {extra: api, rejectWithValue}) => {
-  try {
-    const response = await api.post<AuthData>(APIRoute.Login, data);
-    setToken(response.data.token);
-    return response.data;
-  } catch (e) {
-    const err = e as AxiosError<ErrorDetailsMessage>;
-    throw rejectWithValue(err.response!.data);
-  }
+}>('postLoginData', async (data, {extra: api}) => {
+  const response = await api.post<AuthData>(APIRoute.Login, data);
+  setToken(response.data.token);
+  return response.data;
 });
 
 export const logout = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: StoreSchema;
   extra: AxiosInstance;
-  rejectWithValue: ErrorDetailsMessage;
-}>('logout', async (_, {extra: api, rejectWithValue}) => {
-  try {
-    await api.delete(APIRoute.Logout);
-    setToken('');
-  } catch (e) {
-    const err = e as AxiosError<ErrorDetailsMessage>;
-    throw rejectWithValue(err.response!.data);
-  }
+}>('logout', async (_, {extra: api}) => {
+  await api.delete(APIRoute.Logout);
+  setToken('');
 });
 
 export const postComment = createAsyncThunk<void, PostCommentData, {
@@ -136,10 +111,11 @@ export const getFavoriteFilms = createAsyncThunk<FilmShallow[], undefined, {
 });
 
 
-export const changeFavoriteFilms = createAsyncThunk<void, ChangeFavoriteFilmsData, {
+export const changeFavoriteFilms = createAsyncThunk<Film, ChangeFavoriteFilmsData, {
   dispatch: AppDispatch;
   state: StoreSchema;
   extra: AxiosInstance;
 }>('changeFavoriteFilms', async (data, {extra: api}) => {
-  await api.post(`${APIRoute.Favorite}/${data.filmId}/${data.status}`);
+  const response = await api.post<Film>(`${APIRoute.Favorite}/${data.filmId}/${data.status}`);
+  return response.data;
 });

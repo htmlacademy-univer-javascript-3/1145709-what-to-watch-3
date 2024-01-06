@@ -12,6 +12,9 @@ import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {useEffect} from 'react';
 import {getAllFilms, getFavoriteFilms, getLoginData, getPromoFilm} from '../../store/thunks.ts';
 import {LoadingMessage} from '../loading-messsage/loading-message.tsx';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {getToken} from '../../api/utils.ts';
 
 function App(): JSX.Element {
   const isLoading = useAppSelector((state) => state.main.isFilmListLoading);
@@ -22,8 +25,10 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(getAllFilms());
-    dispatch(getLoginData());
     dispatch(getPromoFilm());
+    if (getToken()) {
+      dispatch(getLoginData());
+    }
   }, [dispatch]);
 
   useEffect(() => {
@@ -38,32 +43,35 @@ function App(): JSX.Element {
   }
 
   return (
-    <Routes>
-      <Route path={AppRoute.Root}>
-        <Route index element={
-          <MainPage/>
-        }
-        />
-        <Route path={AppRoute.SignIn} element={<SignInPage/>}/>
-        <Route path={AppRoute.MyList} element={
-          <PrivateRoute authorizationStatus={authStatus}>
-            <MyListPage/>
-          </PrivateRoute>
-        }
-        />
-        <Route path={`${AppRoute.Films}/:id/`}>
-          <Route index element={<FilmPage/>}/>
-          <Route path={AppRoute.Reviews} element={
+    <>
+      <ToastContainer/>
+      <Routes>
+        <Route path={AppRoute.Root}>
+          <Route index element={
+            <MainPage/>
+          }
+          />
+          <Route path={AppRoute.SignIn} element={<SignInPage/>}/>
+          <Route path={AppRoute.MyList} element={
             <PrivateRoute authorizationStatus={authStatus}>
-              <AddReviewPage />
+              <MyListPage/>
             </PrivateRoute>
           }
           />
+          <Route path={`${AppRoute.Films}/:id/`}>
+            <Route index element={<FilmPage/>}/>
+            <Route path={AppRoute.Reviews} element={
+              <PrivateRoute authorizationStatus={authStatus}>
+                <AddReviewPage />
+              </PrivateRoute>
+            }
+            />
+          </Route>
+          <Route index path={`${AppRoute.Player}/:id/`} element={<PlayerPage />}/>
         </Route>
-        <Route index path={`${AppRoute.Player}/:id/`} element={<PlayerPage />}/>
-      </Route>
-      <Route path="*" element={<Page404/>}/>
-    </Routes>
+        <Route path="*" element={<Page404/>}/>
+      </Routes>
+    </>
   );
 }
 

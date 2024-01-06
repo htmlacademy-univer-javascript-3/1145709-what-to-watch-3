@@ -22,11 +22,11 @@ function FilmPage(): JSX.Element {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (id !== undefined) {
+    if (id && film) {
       dispatch(getComments(id));
       dispatch(getSimilarFilms(id));
     }
-  }, [navigate, dispatch, id]);
+  }, [navigate, dispatch, id, film]);
 
   if (isFilmLoading || film === null) {
     return <LoadingMessage/>;
@@ -69,7 +69,6 @@ function FilmPage(): JSX.Element {
           films={similarFilms}
           title={'More like this'}
           showGenres={false}
-          limit={4}
           showTitle
           showMore={false}
           className={'catalog catalog--like-this'}

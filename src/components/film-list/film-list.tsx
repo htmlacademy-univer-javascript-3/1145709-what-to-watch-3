@@ -2,7 +2,6 @@ import FilmCard from '../film-card/film-card';
 import {useEffect, useMemo, useState} from 'react';
 import {GenreList} from '../genre-list/genre-list.tsx';
 import {DefaultFilmGenre, DefaultMoreCounterValue} from '../../const.ts';
-import {ShowMore} from '../show-more/show-more.tsx';
 import {FilmShallow} from '../../types/film-shallow.ts';
 import {useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 
@@ -10,7 +9,6 @@ import {useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 interface FilmListProps {
   films: FilmShallow[];
   title: string;
-  limit?: number;
 
   showMore?: boolean;
   showTitle?: boolean;
@@ -19,7 +17,14 @@ interface FilmListProps {
 }
 
 export function FilmList(props: FilmListProps) {
-  const {films, title, limit = DefaultMoreCounterValue, showGenres = true, showTitle = false, showMore = limit < films.length, className} = props;
+  const {
+    films,
+    title,
+    showGenres = true,
+    showTitle = false,
+    showMore = true,
+    className
+  } = props;
   const [, setCurrentFilm] = useState({});
   const [moreCounter, setMoreCounter] = useState(DefaultMoreCounterValue);
   const currentGenre = useAppSelector((state) => state.main.genre);
@@ -41,7 +46,16 @@ export function FilmList(props: FilmListProps) {
         )}
       </div>
 
-      {showMore && moreCounter < filteredFilms.length && <ShowMore addMoreCounter={(count) => setMoreCounter(moreCounter + count)}/>}
+      {showMore && moreCounter < filteredFilms.length &&
+        (
+          <div className="catalog__more">
+            <button className="catalog__button" type="button" data-testid='show-more-button'
+              onClick={() => setMoreCounter(moreCounter + DefaultMoreCounterValue)}
+            >Show more
+            </button>
+          </div>
+        )}
     </section>
   );
 }
+

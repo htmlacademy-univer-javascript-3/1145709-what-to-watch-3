@@ -47,7 +47,7 @@ export const Header = (props: PropsWithChildren<HeaderProps>) => {
         {isAuth ?
           <>
             <li className="user-block__item">
-              <Link to={AppRoute.MyList}>
+              <Link to={AppRoute.MyList} data-testid='mylist'>
                 <div className="user-block__avatar">
                   <img src={authData?.avatarUrl} alt={authData?.name} width="63" height="63"/>
                 </div>
@@ -56,7 +56,7 @@ export const Header = (props: PropsWithChildren<HeaderProps>) => {
             <li className="user-block__item">
               <div onClick={() => {
                 dispatch(logout()).then(() => navigate(AppRoute.SignIn));
-              }} className="user-block__link"
+              }} className="user-block__link" data-testid='logout'
               >
                 Sign out
               </div>
@@ -64,7 +64,7 @@ export const Header = (props: PropsWithChildren<HeaderProps>) => {
           </>
           :
           <li className="user-block__item">
-            <Link to={AppRoute.SignIn} className="user-block__link">Sign in</Link>
+            <Link to={AppRoute.SignIn} className="user-block__link" data-testid='sign-in'>Sign in</Link>
           </li>}
       </ul>
     </header>

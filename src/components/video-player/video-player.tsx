@@ -24,7 +24,7 @@ function VideoPlayer({film}: {film: FilmShallow}) {
 
   return (
     <div className="small-film-card__image" onMouseEnter={() => setIsPlaying(true)} onMouseLeave={() => setIsPlaying(false)}>
-      <video ref={videoRef} width={'100%'} preload={'auto'} src={film.previewVideoLink} poster={film.previewImage} muted/>
+      <video ref={videoRef} width={'100%'} preload={'auto'} src={film.previewVideoLink} poster={film.previewImage} muted data-testid='video'/>
     </div>
   );
 }

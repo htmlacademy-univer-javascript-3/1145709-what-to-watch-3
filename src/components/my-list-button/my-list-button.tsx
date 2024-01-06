@@ -39,7 +39,7 @@ const MyListButton = (props: MyListButton) => {
   return (
     <button className="btn btn--list film-card__button" type="button" onClick={handleMyListButtonClick}>
       <svg viewBox="0 0 19 20" width="19" height="20">
-        {isFavorite ? <use xlinkHref="#in-list"></use> : <use xlinkHref="#add"></use>}
+        {isFavorite ? <use xlinkHref="#in-list" data-testid='in-list'></use> : <use xlinkHref="#add" data-testid='not-in-list'></use>}
       </svg>
       <span>My list</span>
       {favoriteFilmsCount !== null ? <span className="film-card__count">{favoriteFilmsCount}</span> : undefined}

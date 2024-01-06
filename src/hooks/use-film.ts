@@ -9,7 +9,7 @@ export const useFilm = () => {
   const isFilmLoading = useAppSelector((state) => state.film.isFilmLoading);
 
   const dispatch = useAppDispatch();
-  const { id } = useParams();
+  const {id} = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {

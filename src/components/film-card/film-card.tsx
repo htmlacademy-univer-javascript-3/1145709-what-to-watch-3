@@ -16,7 +16,7 @@ function FilmCard(props: ArticleProps): JSX.Element {
     <article className="small-film-card catalog__films-card" {...restProps}>
       <VideoPlayer film={film}/>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`${AppRoute.Films}/${film.id}`}>{film.name}</Link>
+        <Link className="small-film-card__link" to={`${AppRoute.Films}/${film.id}`} data-testid={'film-link'}>{film.name}</Link>
       </h3>
     </article>
   );
