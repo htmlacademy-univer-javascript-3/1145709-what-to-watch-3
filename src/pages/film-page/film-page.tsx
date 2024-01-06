@@ -69,7 +69,6 @@ function FilmPage(): JSX.Element {
           films={similarFilms}
           title={'More like this'}
           showGenres={false}
-          limit={4}
           showTitle
           showMore={false}
           className={'catalog catalog--like-this'}

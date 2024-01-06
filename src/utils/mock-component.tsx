@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import {StoreSchema} from '../types/state.ts';
 import {createAPI} from '../api/api.ts';
 import {AppThunkDispatch} from './mocks.ts';
+import {AuthorizationStatus, DefaultFilmGenre} from '../const.ts';
 
 export function withHistory(component: JSX.Element, history?: MemoryHistory) {
   const memoryHistory = history ?? createMemoryHistory();
@@ -48,3 +49,27 @@ export function withStore(
     mockAxiosAdapter,
   });
 }
+
+export const makeFakeStore = (initialState?: Partial<StoreSchema>): StoreSchema => ({
+  user: {
+    authorizationStatus: AuthorizationStatus.NoAuth,
+    authData: null,
+    isAuthenticated: false,
+    isAuthLoading: false,
+    favoriteFilms: [],
+    favoriteFilmsCount: null,
+  },
+  main: {
+    promoFilm: null,
+    films: [],
+    genre: DefaultFilmGenre,
+    isFilmListLoading: false,
+  },
+  film: {
+    film: null,
+    similarFilms: [],
+    filmComments: [],
+    isFilmLoading: false,
+  },
+  ...initialState ?? {},
+});

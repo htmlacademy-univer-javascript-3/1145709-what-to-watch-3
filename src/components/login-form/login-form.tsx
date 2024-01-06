@@ -49,19 +49,19 @@ export const LoginForm = () => {
           {isValid &&
             <p>Please enter a valid email address</p>}
           {isIncorrectData &&
-              <p>We can’t recognize this email <br/> and password combination. Please try again. </p>}
+              <p data-testid='incorrect-message'>We can’t recognize this email <br/> and password combination. Please try again. </p>}
         </div>
 
         <div className="sign-in__field">
           <input className="sign-in__input" onChange={handleFieldChange} value={formData.email} type="email"
             placeholder="Email address" name="email"
-            id="email"
+            id="email" data-testid='email'
           />
           <label className="sign-in__label visually-hidden" htmlFor="email">Email address</label>
         </div>
         <div className="sign-in__field">
           <input className="sign-in__input" type="password" placeholder="Password" name="password"
-            id="password" onChange={handleFieldChange} value={formData.password}
+            id="password" onChange={handleFieldChange} value={formData.password} data-testid='password'
           />
           <label className="sign-in__label visually-hidden" htmlFor="password">Password</label>
         </div>

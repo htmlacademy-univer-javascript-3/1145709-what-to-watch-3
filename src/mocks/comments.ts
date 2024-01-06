@@ -14,5 +14,12 @@ export const comments: FilmComment[] = [
     'date': '2024-01-05T13:33:55.914Z',
     'rating': 5,
     'user': 'Oliver.conner'
+  },
+  {
+    'id': '34a40710-afca-444c-a1ec-658ad2402228',
+    'comment': 'dsgkljdsgkljgdkjldsgkjlgds 4879342897324bny uifdshgshjsiuoewguiogesnbdgs',
+    'date': '2024-01-06T13:33:55.914Z',
+    'rating': 7,
+    'user': 'Oliver.cner'
   }
 ];

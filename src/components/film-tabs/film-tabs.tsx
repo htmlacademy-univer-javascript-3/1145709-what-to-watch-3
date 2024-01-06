@@ -7,7 +7,7 @@ type FilmTabType = {
   params: string;
 }
 
-const filmTypes: Array<FilmTabType> = [
+export const FilmTypes: Array<FilmTabType> = [
   {
     key: DescriptionType.Overview,
     text: 'Overview',
@@ -36,9 +36,9 @@ function FilmTabs(props: FilmTabsProps): JSX.Element {
   return (
     <nav className="film-nav film-card__nav">
       <ul className="film-nav__list">
-        {filmTypes.map((x) => (
+        {FilmTypes.map((x) => (
           <li key={x.text} className={`film-nav__item ${selectedKey === x.key ? 'film-nav__item--active' : ''}`}>
-            <div className='film-nav__link' onClick={() => {
+            <div className='film-nav__link' data-testid={x.key} onClick={() => {
               navigate(`?${x.params}`);
             }}
             >

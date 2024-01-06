@@ -1,10 +1,10 @@
 import FilmTabs from '../film-tabs/film-tabs';
 import {Film} from '../../types/film';
 import {useSearchParams} from 'react-router-dom';
-import {DescOverview} from '../desc-overview/desc-overview';
 import {DescriptionType} from '../../const';
+import {DescOverview} from '../desc-overview/desc-overview';
 import {DescDetails} from '../desc-details/desc-details';
-import {DescReviews} from '../../pages/desc-reviews/desc-reviews';
+import {DescReviews} from '../desc-reviews/desc-reviews';
 
 interface FilmDescProps {
   film: Film;

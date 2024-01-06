@@ -13,7 +13,7 @@ export const DescDetails = (props: CommonDescriptionProps) => {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {film.starring.map((artistName) => <span key={artistName}>{artistName},<br/></span>)}
+            {film.starring.map((artistName) => <span key={artistName}><span>{artistName}</span><span>,<br/></span></span>)}
           </span>
         </p>
       </div>
@@ -21,7 +21,7 @@ export const DescDetails = (props: CommonDescriptionProps) => {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{Math.floor(film.runTime / 60)}h {film.runTime % 60}m</span>
+          <span className="film-card__details-value" data-testid={'run-time'}>{Math.floor(film.runTime / 60)}h {film.runTime % 60}m</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
