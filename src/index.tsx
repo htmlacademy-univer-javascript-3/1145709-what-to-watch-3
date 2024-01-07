@@ -6,6 +6,7 @@ import {Provider} from 'react-redux';
 import {store} from './store/store.ts';
 import {ToastContainer} from 'react-toastify';
 import Spinner from './components/spinner/spinner.tsx';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

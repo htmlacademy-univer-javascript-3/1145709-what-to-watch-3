@@ -1,12 +1,12 @@
 import {createMemoryHistory, MemoryHistory} from 'history';
 import {makeFakeStore, withHistory, withStore} from '../../utils/mock-component.tsx';
 import {render, screen} from '@testing-library/react';
-import {APIRoute, AppRoute, AuthorizationStatus} from '../../const.ts';
 import {authData} from '../../mocks/auth-data.ts';
 import userEvent from '@testing-library/user-event';
 import {extractActionsTypes} from '../../utils/mocks.ts';
 import {postLoginData} from '../../store/thunks.ts';
 import {LoginForm} from './login-form.tsx';
+import {APIRoute, AppRoute, AuthorizationStatus} from '../../types/enums.ts';
 
 describe('Component: Login Form', () => {
   let mockHistory: MemoryHistory;

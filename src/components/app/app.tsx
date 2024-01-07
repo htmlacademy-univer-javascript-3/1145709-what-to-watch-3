@@ -7,13 +7,12 @@ import FilmPage from '../../pages/film-page/film-page.tsx';
 import AddReviewPage from '../../pages/add-review-page/add-review-page.tsx';
 import PlayerPage from '../../pages/player-page/player-page.tsx';
 import {PrivateRoute} from '../private-route/private-route.tsx';
-import {AppRoute} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {useEffect} from 'react';
 import {getAllFilms, getFavoriteFilms, getLoginData, getPromoFilm} from '../../store/thunks.ts';
-import 'react-toastify/dist/ReactToastify.css';
 import {getToken} from '../../api/utils.ts';
 import {selectAuthorizationStatus, selectIsAuthenticated} from '../../store/user/user-slice.selectors.ts';
+import {AppRoute} from '../../types/enums.ts';
 
 function App(): JSX.Element {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);

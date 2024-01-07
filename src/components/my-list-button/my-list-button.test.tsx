@@ -1,7 +1,6 @@
 import {createMemoryHistory, MemoryHistory} from 'history';
 import {makeFakeStore, withHistory, withStore} from '../../utils/mock-component.tsx';
 import {render, screen} from '@testing-library/react';
-import {APIRoute, AuthorizationStatus} from '../../const.ts';
 import {authData} from '../../mocks/auth-data.ts';
 import userEvent from '@testing-library/user-event';
 import {extractActionsTypes} from '../../utils/mocks.ts';
@@ -10,6 +9,7 @@ import MyListButton from './my-list-button.tsx';
 import {film} from '../../mocks/film.ts';
 import {films} from '../../mocks/films.ts';
 import {decrementFavoriteFilmsCount, incrementFavoriteFilmsCount} from '../../store/user/user-slice.ts';
+import {APIRoute, AuthorizationStatus} from '../../types/enums.ts';
 
 describe('Component: MyListButton', () => {
   let mockHistory: MemoryHistory;

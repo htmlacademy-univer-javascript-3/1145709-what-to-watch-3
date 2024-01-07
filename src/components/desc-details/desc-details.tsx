@@ -1,4 +1,4 @@
-import {CommonDescriptionProps} from '../../const';
+import {CommonDescriptionProps} from '../../types/common-interfaces.ts';
 
 export const DescDetails = (props: CommonDescriptionProps) => {
   const {film} = props;

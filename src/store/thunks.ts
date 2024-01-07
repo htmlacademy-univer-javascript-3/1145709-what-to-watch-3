@@ -7,8 +7,8 @@ import {Film} from '../types/film.ts';
 import {FilmComment, PostCommentData} from '../types/film-comment.ts';
 import {setToken} from '../api/utils.ts';
 import {StoreSchema} from '../types/state.ts';
-import {APIRoute} from '../const.ts';
 import {FilmPromo} from '../types/film-promo.ts';
+import {APIRoute} from '../types/enums.ts';
 
 export const getAllFilms = createAsyncThunk<FilmShallow[], undefined, {
   dispatch: AppDispatch;

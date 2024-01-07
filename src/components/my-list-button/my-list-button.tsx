@@ -5,9 +5,9 @@ import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {decrementFavoriteFilmsCount, incrementFavoriteFilmsCount} from '../../store/user/user-slice.ts';
 import {changeFavoriteFilms, getPromoFilm} from '../../store/thunks.ts';
 import {useNavigate} from 'react-router-dom';
-import {APIRoute} from '../../const.ts';
 import {selectFavoriteFilmsCount, selectIsAuthenticated} from '../../store/user/user-slice.selectors.ts';
 import {selectPromoFilm} from '../../store/main/main-slice.selectors.ts';
+import {APIRoute} from '../../types/enums.ts';
 
 interface MyListButton {
   film: Film | FilmPromo;

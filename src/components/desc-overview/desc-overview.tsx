@@ -1,5 +1,5 @@
-import {CommonDescriptionProps} from '../../const';
 import {getDescriptionByRate} from '../utils/film-utils.ts';
+import {CommonDescriptionProps} from '../../types/common-interfaces.ts';
 
 export const DescOverview = (props: CommonDescriptionProps) => {
   const {film} = props;

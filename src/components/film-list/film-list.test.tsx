@@ -5,7 +5,7 @@ import {FilmList} from './film-list.tsx';
 import {films} from '../../mocks/films.ts';
 import {makeFakeStore, withStore} from '../../utils/mock-component.tsx';
 import userEvent from '@testing-library/user-event';
-import {DefaultMoreCounterValue} from '../../const.ts';
+import {DEFAULT_MORE_COUNTER_VALUE} from '../../const.ts';
 import {promoFilm} from '../../mocks/promo-film.ts';
 
 
@@ -36,7 +36,7 @@ describe('Component: FilmList', () => {
       screen.getByTestId('show-more-button')
     );
 
-    expect(screen.getAllByTestId('film').length).toEqual(DefaultMoreCounterValue * 2);
+    expect(screen.getAllByTestId('film').length).toEqual(DEFAULT_MORE_COUNTER_VALUE * 2);
 
     while(screen.queryByTestId('show-more-button')) {
       await userEvent.click(

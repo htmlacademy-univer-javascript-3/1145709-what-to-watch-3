@@ -3,7 +3,6 @@ import HistoryRouter from '../components/history-route/history-route';
 
 import { MockStore, configureMockStore } from '@jedmao/redux-mock-store';
 import MockAdapter from 'axios-mock-adapter';
-import { HelmetProvider } from 'react-helmet-async';
 
 
 import thunk from 'redux-thunk';
@@ -13,16 +12,15 @@ import { Provider } from 'react-redux';
 import {StoreSchema} from '../types/state.ts';
 import {createAPI} from '../api/api.ts';
 import {AppThunkDispatch} from './mocks.ts';
-import {AuthorizationStatus, DefaultFilmGenre} from '../const.ts';
+import {DEFAULT_FILM_GENRE} from '../const.ts';
+import {AuthorizationStatus} from '../types/enums.ts';
 
 export function withHistory(component: JSX.Element, history?: MemoryHistory) {
   const memoryHistory = history ?? createMemoryHistory();
 
   return (
     <HistoryRouter history={memoryHistory}>
-      <HelmetProvider>
-        {component}
-      </HelmetProvider>
+      {component}
     </HistoryRouter>
   );
 }
@@ -62,7 +60,7 @@ export const makeFakeStore = (initialState?: Partial<StoreSchema>): StoreSchema 
   main: {
     promoFilm: null,
     films: [],
-    genre: DefaultFilmGenre,
+    genre: DEFAULT_FILM_GENRE,
     isFilmListLoading: false,
   },
   film: {

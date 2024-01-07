@@ -14,11 +14,10 @@ import {AppThunkDispatch, extractActionsTypes} from '../utils/mocks.ts';
 import {PropsWithChildren} from 'react';
 import {createAPI} from '../api/api.ts';
 import HistoryRouter from '../components/history-route/history-route.tsx';
-import {HelmetProvider} from 'react-helmet-async';
 import {createMemoryHistory, MemoryHistory} from 'history';
-import {APIRoute, AppRoute} from '../const.ts';
 import {getFilmById} from '../store/thunks.ts';
 import {Route, Routes} from 'react-router-dom';
+import {APIRoute, AppRoute} from '../types/enums.ts';
 
 
 describe('Hook: useFilm', () => {
@@ -37,11 +36,9 @@ describe('Hook: useFilm', () => {
     const wrapper = ({ children }: PropsWithChildren) => (
       <Provider store={mockStore}>
         <HistoryRouter history={mockHistory}>
-          <HelmetProvider>
-            <Routes>
-              <Route path={`${AppRoute.Films}/:id`} element={children}/>
-            </Routes>
-          </HelmetProvider>
+          <Routes>
+            <Route path={`${AppRoute.Films}/:id`} element={children}/>
+          </Routes>
         </HistoryRouter>
       </Provider>
     );

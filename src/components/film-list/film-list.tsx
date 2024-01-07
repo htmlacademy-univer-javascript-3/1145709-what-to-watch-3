@@ -1,7 +1,7 @@
 import FilmCard from '../film-card/film-card';
 import {useEffect, useMemo, useState} from 'react';
 import {GenreList} from '../genre-list/genre-list.tsx';
-import {DefaultFilmGenre, DefaultMoreCounterValue} from '../../const.ts';
+import {DEFAULT_FILM_GENRE, DEFAULT_MORE_COUNTER_VALUE} from '../../const.ts';
 import {FilmShallow} from '../../types/film-shallow.ts';
 import {useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {selectGenre} from '../../store/main/main-slice.selectors.ts';
@@ -29,12 +29,12 @@ export function FilmList(props: FilmListProps) {
     limit
   } = props;
   const [, setCurrentFilm] = useState({});
-  const [moreCounter, setMoreCounter] = useState(DefaultMoreCounterValue);
+  const [moreCounter, setMoreCounter] = useState(DEFAULT_MORE_COUNTER_VALUE);
   const currentGenre = useAppSelector(selectGenre);
-  const filteredFilms = useMemo(() => films.filter((film) => film.genre === currentGenre || currentGenre === DefaultFilmGenre), [films, currentGenre]);
+  const filteredFilms = useMemo(() => films.filter((film) => film.genre === currentGenre || currentGenre === DEFAULT_FILM_GENRE), [films, currentGenre]);
 
   useEffect(() => {
-    setMoreCounter(DefaultMoreCounterValue);
+    setMoreCounter(DEFAULT_MORE_COUNTER_VALUE);
   }, [currentGenre]);
 
   return (
@@ -53,7 +53,7 @@ export function FilmList(props: FilmListProps) {
         (
           <div className="catalog__more">
             <button className="catalog__button" type="button" data-testid='show-more-button'
-              onClick={() => setMoreCounter(moreCounter + DefaultMoreCounterValue)}
+              onClick={() => setMoreCounter(moreCounter + DEFAULT_MORE_COUNTER_VALUE)}
             >Show more
             </button>
           </div>

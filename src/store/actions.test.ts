@@ -5,8 +5,6 @@ import thunk from 'redux-thunk';
 import {Action} from 'redux';
 import {AppThunkDispatch, extractActionsTypes} from '../utils/mocks';
 
-import {APIRoute} from '../const';
-
 import {StoreSchema} from '../types/state.ts';
 import {
   changeFavoriteFilms,
@@ -27,6 +25,7 @@ import {promoFilm} from '../mocks/promo-film.ts';
 import {film} from '../mocks/film.ts';
 import {similarFilms} from '../mocks/similar-films.ts';
 import {comments} from '../mocks/comments.ts';
+import {APIRoute} from '../types/enums.ts';
 
 describe('Async actions', () => {
   const axios = createAPI();

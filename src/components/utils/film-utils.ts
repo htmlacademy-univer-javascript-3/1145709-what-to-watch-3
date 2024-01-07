@@ -1,4 +1,4 @@
-import {RatingDescriptions} from '../../const.ts';
+import {RatingDescriptions} from '../../types/enums.ts';
 
 export const getDescriptionByRate = (rate: number): RatingDescriptions => {
   if (rate < 3) {

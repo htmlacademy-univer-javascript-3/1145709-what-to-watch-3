@@ -4,9 +4,9 @@ import {expect} from 'vitest';
 
 import {withHistory} from '../../utils/mock-component.tsx';
 import userEvent from '@testing-library/user-event';
-import {DescriptionType} from '../../const.ts';
 import {createMemoryHistory, MemoryHistory} from 'history';
 import FilmTabs, {FilmTypes} from './film-tabs.tsx';
+import {DescriptionType} from '../../types/enums.ts';
 
 describe('Component: FilmTabs', () => {
   let mockHistory: MemoryHistory;

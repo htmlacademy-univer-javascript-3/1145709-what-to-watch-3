@@ -6,7 +6,7 @@ import {films} from '../../mocks/films.ts';
 import userEvent from '@testing-library/user-event';
 import {extractActionsTypes} from '../../utils/mocks.ts';
 import {changeGenre} from '../../store/main/main-slice.ts';
-import {DefaultFilmGenre} from '../../const.ts';
+import {DEFAULT_FILM_GENRE} from '../../const.ts';
 
 describe('Component: FilmTabs', () => {
   let mockHistory: MemoryHistory;
@@ -42,7 +42,7 @@ describe('Component: FilmTabs', () => {
       changeGenre.type,
       changeGenre.type
     ]);
-    expect((actions.at(0) as ReturnType<typeof changeGenre>).payload).toBe(DefaultFilmGenre);
+    expect((actions.at(0) as ReturnType<typeof changeGenre>).payload).toBe(DEFAULT_FILM_GENRE);
     expect((actions.at(1) as ReturnType<typeof changeGenre>).payload).toBe(secondGenreButton.textContent);
   });
 });

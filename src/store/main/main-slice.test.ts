@@ -2,7 +2,7 @@ import {describe} from 'vitest';
 import {films} from '../../mocks/films';
 import {changeGenre, mainSlice} from './main-slice.ts';
 import {MainState} from '../../types/state.ts';
-import {DefaultFilmGenre} from '../../const.ts';
+import {DEFAULT_FILM_GENRE} from '../../const.ts';
 import {getAllFilms, getPromoFilm} from '../thunks.ts';
 import {film} from '../../mocks/film.ts';
 
@@ -11,7 +11,7 @@ describe('General store slice', () => {
   const defaultState: MainState = {
     promoFilm: null,
     films: [],
-    genre: DefaultFilmGenre,
+    genre: DEFAULT_FILM_GENRE,
     isFilmListLoading: false,
   };
 

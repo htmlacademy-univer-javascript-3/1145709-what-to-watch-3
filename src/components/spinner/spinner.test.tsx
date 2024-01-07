@@ -3,7 +3,7 @@ import {expect} from 'vitest';
 
 import Spinner from './spinner';
 import {makeFakeStore, withStore} from '../../utils/mock-component.tsx';
-import {DefaultFilmGenre} from '../../const.ts';
+import {DEFAULT_FILM_GENRE} from '../../const.ts';
 
 
 describe('Component: Spinner', () => {
@@ -19,7 +19,7 @@ describe('Component: Spinner', () => {
     const {withStoreComponent} = withStore(<Spinner/>, makeFakeStore({
       main: {
         films: [],
-        genre: DefaultFilmGenre,
+        genre: DEFAULT_FILM_GENRE,
         promoFilm: null,
         isFilmListLoading: true,
       }

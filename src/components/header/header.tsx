@@ -1,10 +1,10 @@
-import {AppRoute} from '../../const';
 import {Link, useNavigate} from 'react-router-dom';
 import {Film} from '../../types/film';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {logout} from '../../store/thunks.ts';
 import {PropsWithChildren} from 'react';
 import {selectAuthData, selectIsAuthenticated} from '../../store/user/user-slice.selectors.ts';
+import {AppRoute} from '../../types/enums.ts';
 
 interface HeaderProps {
   showBreadcrumbs?: boolean;

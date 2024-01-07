@@ -1,5 +1,4 @@
 import {Link, useNavigate, useParams} from 'react-router-dom';
-import {AppRoute} from '../../const';
 import {FilmList} from '../../components/film-list/film-list';
 import {Footer} from '../../components/footer/footer';
 import {Header} from '../../components/header/header';
@@ -13,6 +12,7 @@ import {useEffect} from 'react';
 import {getComments, getSimilarFilms} from '../../store/thunks.ts';
 import {selectIsAuthenticated} from '../../store/user/user-slice.selectors.ts';
 import {selectSimilarFilms} from '../../store/film/film-slice.selectors.ts';
+import {AppRoute} from '../../types/enums.ts';
 
 function FilmPage(): JSX.Element {
   const { film } = useFilm();
