@@ -1,4 +1,5 @@
 import {CommonDescriptionProps} from '../../const';
+import {getDescriptionByRate} from '../utils/film-utils.ts';
 
 export const DescOverview = (props: CommonDescriptionProps) => {
   const {film} = props;
@@ -8,7 +9,7 @@ export const DescOverview = (props: CommonDescriptionProps) => {
       <div className="film-rating">
         <div className="film-rating__score" data-testid={'rating'}>{film.rating}</div>
         <p className="film-rating__meta">
-          <span className="film-rating__level">Very good</span>
+          <span className="film-rating__level">{getDescriptionByRate(film.rating)}</span>
           <span className="film-rating__count" data-testid={'rating-count'}>{film.scoresCount} ratings</span>
         </p>
       </div>

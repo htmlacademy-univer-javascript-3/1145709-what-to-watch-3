@@ -21,6 +21,8 @@ export enum DescriptionType {
   Reviews = 'reviews'
 }
 
+export type RatingDescriptions = 'Bad' | 'Normal' | 'Good' | 'Very good' | 'Awesome'
+
 export interface CommonDescriptionProps {
   film: Film;
 }

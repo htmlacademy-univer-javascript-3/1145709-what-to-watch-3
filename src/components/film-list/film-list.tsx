@@ -10,6 +10,7 @@ interface FilmListProps {
   films: FilmShallow[];
   title: string;
 
+  limit?: number;
   showMore?: boolean;
   showTitle?: boolean;
   showGenres?: boolean;
@@ -23,7 +24,8 @@ export function FilmList(props: FilmListProps) {
     showGenres = true,
     showTitle = false,
     showMore = true,
-    className
+    className,
+    limit
   } = props;
   const [, setCurrentFilm] = useState({});
   const [moreCounter, setMoreCounter] = useState(DefaultMoreCounterValue);
@@ -41,7 +43,7 @@ export function FilmList(props: FilmListProps) {
       {showGenres && <GenreList films={films}/>}
 
       <div className="catalog__films-list">
-        {filteredFilms.slice(0, moreCounter).map(
+        {filteredFilms.slice(0, limit ? Math.min(moreCounter, limit) : moreCounter).map(
           (film: FilmShallow) => <FilmCard film={film} key={film.id} onMouseEnter={() => setCurrentFilm(film)}/>
         )}
       </div>

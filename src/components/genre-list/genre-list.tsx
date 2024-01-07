@@ -15,7 +15,7 @@ export const GenreList = (props: GenreListProps) => {
   const dispatch = useAppDispatch();
   const films = props.films;
 
-  const uniqueGenres = useMemo(() => [DefaultFilmGenre, ...new Set(films.map((x) => x.genre))], [films]);
+  const uniqueGenres = useMemo(() => [DefaultFilmGenre, ...new Set(films.map((x) => x.genre))].slice(0, 10), [films]);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {

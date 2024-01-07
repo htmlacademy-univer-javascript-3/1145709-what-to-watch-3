@@ -5,7 +5,7 @@ import {MouseEvent, useEffect, useRef, useState} from 'react';
 
 
 function PlayerPage(): JSX.Element {
-  const {isFilmLoading, film} = useFilm();
+  const {film} = useFilm();
   const navigate = useNavigate();
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -15,7 +15,6 @@ function PlayerPage(): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const [isToggleMouseDown, setIsToggleMouseDown] = useState(false);
-  const [isFullScreen, setIsFullScreen] = useState(false);
 
   const [currentTime, setCurrentTime] = useState(0);
 
@@ -42,12 +41,10 @@ function PlayerPage(): JSX.Element {
 
   const fullscreenCallback = (isLoading: boolean) => {
     if (!isLoading) {
-      if (isFullScreen) {
-        videoRef.current?.requestFullscreen();
-      } else {
+      videoRef.current?.requestFullscreen().catch(() => {
         document.exitFullscreen();
-      }
-      setIsFullScreen(!isFullScreen);
+        videoRef.current?.requestFullscreen();
+      });
     }
   };
 
@@ -84,7 +81,7 @@ function PlayerPage(): JSX.Element {
     }
   }, [isVideoLoading]);
 
-  if (isFilmLoading || film === null) {
+  if (film === null) {
     return <LoadingMessage/>;
   }
 
@@ -120,7 +117,7 @@ function PlayerPage(): JSX.Element {
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   {isPlaying ? <use xlinkHref="#pause" ></use> : <use xlinkHref="#play-s"></use>}
                 </svg>
-                <span data-testid='play'>Play</span>
+                <span data-testid='play'>{isPlaying ? 'Pause' : 'Play'}</span>
               </button>
               <div className="player__name" onMouseMove={handleMouseMoveEvent}>{film.name}</div>
 
