@@ -3,9 +3,9 @@ import {createMemoryHistory, MemoryHistory} from 'history';
 import {act, render, screen} from '@testing-library/react';
 
 import {expect} from 'vitest';
-import {AppRoute, DescriptionType} from '../../const.ts';
 import FilmDesc from './film-desc.tsx';
 import {film} from '../../mocks/film.ts';
+import {AppRoute, DescriptionType} from '../../types/enums.ts';
 
 
 vi.mock('../film-tabs/film-tabs', () => ({

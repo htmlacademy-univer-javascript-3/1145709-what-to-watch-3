@@ -1,7 +1,7 @@
-import {AuthorizationStatus} from '../../const.ts';
 import {createSlice} from '@reduxjs/toolkit';
 import {getFavoriteFilms, getLoginData, logout, postLoginData} from '../thunks.ts';
 import {UserState} from '../../types/state.ts';
+import {AuthorizationStatus} from '../../types/enums.ts';
 
 const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.NoAuth,

@@ -1,10 +1,10 @@
 import {store} from '../store/store.ts';
-import {AuthorizationStatus} from '../const.ts';
 import {AuthData} from './user.ts';
 import {FilmShallow} from './film-shallow.ts';
 import {Film} from './film.ts';
 import {FilmComment} from './film-comment.ts';
 import {FilmPromo} from './film-promo.ts';
+import {AuthorizationStatus} from './enums.ts';
 
 export interface FilmState {
   film: Film | null;

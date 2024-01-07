@@ -4,9 +4,9 @@ import AddReviewForm from '../../components/add-review-form/add-review-form';
 import {LoadingMessage} from '../../components/loading-messsage/loading-message.tsx';
 
 function AddReviewPage(): JSX.Element {
-  const { isFilmLoading, film } = useFilm();
+  const { film } = useFilm();
 
-  if (isFilmLoading || film === null) {
+  if (film === null) {
     return <LoadingMessage/>;
   }
 

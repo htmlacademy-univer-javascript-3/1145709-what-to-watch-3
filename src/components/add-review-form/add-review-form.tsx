@@ -1,17 +1,22 @@
-import {FormEvent, useState} from 'react';
+import {FormEvent, useEffect, useState} from 'react';
 import {postComment} from '../../store/thunks.ts';
 import {useAppDispatch} from '../../hooks/redux-typed-hooks.ts';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
-import {AppRoute} from '../../const.ts';
 import React from 'react';
+import {AppRoute} from '../../types/enums.ts';
 
 
 function AddReviewForm(): JSX.Element {
   const [commentText, setCommentText] = useState('');
-  const [commentScore, setCommentScore] = useState(10);
+  const [commentScore, setCommentScore] = useState<number | undefined>(undefined);
+  const [isValid, setIsValid] = useState(false);
   const dispatch = useAppDispatch();
   const {id} = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsValid(commentScore !== undefined && commentText.length >= 50 && commentText.length <= 400);
+  }, [commentScore, commentText]);
 
   if (id === undefined) {
     return <Navigate to={AppRoute.NotFound}/>;
@@ -21,7 +26,7 @@ function AddReviewForm(): JSX.Element {
     dispatch(postComment({
       id: id,
       form: {
-        rating: commentScore,
+        rating: commentScore ?? 10,
         comment: commentText,
       }
     })).then((value) => {
@@ -55,7 +60,7 @@ function AddReviewForm(): JSX.Element {
             onChange={(event) => setCommentText(event.target.value)} value={commentText}
           />
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">Post</button>
+            <button className="add-review__btn" type="submit" disabled={!isValid}>Post</button>
           </div>
         </div>
       </form>

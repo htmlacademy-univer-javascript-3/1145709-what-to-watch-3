@@ -1,5 +1,6 @@
 import {useNavigate} from 'react-router-dom';
-import {DescriptionType} from '../../const';
+
+import {DescriptionType} from '../../types/enums.ts';
 
 type FilmTabType = {
   key: DescriptionType;

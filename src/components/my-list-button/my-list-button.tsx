@@ -3,9 +3,11 @@ import {Film} from '../../types/film.ts';
 import {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {decrementFavoriteFilmsCount, incrementFavoriteFilmsCount} from '../../store/user/user-slice.ts';
-import {changeFavoriteFilms} from '../../store/thunks.ts';
+import {changeFavoriteFilms, getPromoFilm} from '../../store/thunks.ts';
 import {useNavigate} from 'react-router-dom';
-import {APIRoute} from '../../const.ts';
+import {selectFavoriteFilmsCount, selectIsAuthenticated} from '../../store/user/user-slice.selectors.ts';
+import {selectPromoFilm} from '../../store/main/main-slice.selectors.ts';
+import {APIRoute} from '../../types/enums.ts';
 
 interface MyListButton {
   film: Film | FilmPromo;
@@ -13,8 +15,9 @@ interface MyListButton {
 const MyListButton = (props: MyListButton) => {
   const {film} = props;
   const [isFavorite, setIsFavorite] = useState(film.isFavorite ?? false);
-  const favoriteFilmsCount = useAppSelector((state) => state.user.favoriteFilmsCount);
-  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
+  const favoriteFilmsCount = useAppSelector(selectFavoriteFilmsCount);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const promoFilm = useAppSelector(selectPromoFilm);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -29,6 +32,9 @@ const MyListButton = (props: MyListButton) => {
         status: isFavorite ? 0 : 1
       })).then(() => {
         dispatch(isFavorite ? decrementFavoriteFilmsCount() : incrementFavoriteFilmsCount());
+        if (promoFilm && film.id === promoFilm.id) {
+          dispatch(getPromoFilm());
+        }
       });
     } else {
       navigate(APIRoute.Login);

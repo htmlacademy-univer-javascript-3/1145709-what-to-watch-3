@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const.ts';
+
+import {AppRoute} from '../../types/enums.ts';
 
 interface PlayButtonProps {
   id: string;

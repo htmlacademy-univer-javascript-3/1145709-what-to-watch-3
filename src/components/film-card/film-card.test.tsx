@@ -6,8 +6,8 @@ import {films} from '../../mocks/films.ts';
 import {render, screen} from '@testing-library/react';
 
 import {expect} from 'vitest';
-import {AppRoute} from '../../const.ts';
 import userEvent from '@testing-library/user-event';
+import {AppRoute} from '../../types/enums.ts';
 
 
 const mockInput = vi.fn();

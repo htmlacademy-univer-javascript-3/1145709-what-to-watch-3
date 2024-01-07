@@ -1,13 +1,13 @@
 import {createMemoryHistory, MemoryHistory} from 'history';
 import {makeFakeStore, withHistory, withStore} from '../../utils/mock-component.tsx';
 import {render, screen} from '@testing-library/react';
-import {APIRoute, AppRoute, AuthorizationStatus} from '../../const.ts';
 import {Header} from './header.tsx';
 import {film} from '../../mocks/film.ts';
 import {authData} from '../../mocks/auth-data.ts';
 import userEvent from '@testing-library/user-event';
 import {extractActionsTypes} from '../../utils/mocks.ts';
 import {logout} from '../../store/thunks.ts';
+import {APIRoute, AppRoute, AuthorizationStatus} from '../../types/enums.ts';
 
 describe('Component: Header', () => {
   let mockHistory: MemoryHistory;

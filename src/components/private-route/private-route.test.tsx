@@ -3,8 +3,8 @@ import {Route, Routes} from 'react-router-dom';
 
 import {render, screen} from '@testing-library/react';
 import {PrivateRoute} from './private-route.tsx';
-import {AuthorizationStatus} from '../../const.ts';
 import {withHistory} from '../../utils/mock-component.tsx';
+import {AuthorizationStatus} from '../../types/enums.ts';
 
 describe('Component: PrivateRoute', () => {
   let mockHistory: MemoryHistory;

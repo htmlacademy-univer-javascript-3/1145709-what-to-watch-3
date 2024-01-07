@@ -34,7 +34,7 @@ describe('Component: Player page', () => {
     expect(screen.getByText('Exit')).toBeInTheDocument();
   });
 
-  it('should pause correctly', async () => {
+  it('should pause/play correctly', async () => {
     const {withStoreComponent} = withStore(withHistory(<PlayerPage/>), makeFakeStore({
       film: {
         film: film,
@@ -46,9 +46,7 @@ describe('Component: Player page', () => {
 
     HTMLVideoElement.prototype.play = vi.fn().mockReturnValue({
       then: () => ({
-        catch: () => {
-          // do nothing
-        }
+        catch: () => undefined
       }),
     });
     HTMLVideoElement.prototype.pause = vi.fn();
@@ -58,9 +56,14 @@ describe('Component: Player page', () => {
     render(withStoreComponent);
 
     fireEvent.loadedData(screen.getByTestId('player'));
-    await userEvent.click(screen.getByText('Play'));
 
     expect(screen.getByTestId('player')).toBeInTheDocument();
     expect(screen.getByTestId('play')).toBeInTheDocument();
+
+    await userEvent.click(screen.getByTestId('play'));
+    expect(screen.getByText('Play')).toBeInTheDocument();
+
+    await userEvent.click(screen.getByTestId('play'));
+    expect(screen.getByText('Pause')).toBeInTheDocument();
   });
 });

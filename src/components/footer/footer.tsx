@@ -1,5 +1,5 @@
-import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
+import {AppRoute} from '../../types/enums.ts';
 
 
 export const Footer = () => (

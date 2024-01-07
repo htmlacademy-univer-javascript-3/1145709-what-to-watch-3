@@ -1,11 +1,11 @@
 import {describe} from 'vitest';
 
 import {decrementFavoriteFilmsCount, incrementFavoriteFilmsCount, userSlice} from './user-slice.ts';
-import {AuthorizationStatus} from '../../const.ts';
 import {authData} from '../../mocks/auth-data.ts';
 import {getFavoriteFilms, getLoginData, logout, postLoginData} from '../thunks.ts';
 import {authError} from '../../mocks/auth-error.ts';
 import {films} from '../../mocks/films.ts';
+import {AuthorizationStatus} from '../../types/enums.ts';
 
 describe('User store slice', () => {
   const defaultState = {

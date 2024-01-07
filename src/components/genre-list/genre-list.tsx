@@ -1,9 +1,10 @@
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import {useEffect, useMemo} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks';
-import {DefaultFilmGenre} from '../../const.ts';
+import {DEFAULT_FILM_GENRE} from '../../const.ts';
 import {changeGenre} from '../../store/main/main-slice.ts';
 import {FilmShallow} from '../../types/film-shallow.ts';
+import {selectGenre} from '../../store/main/main-slice.selectors.ts';
 
 interface GenreListProps {
   films: FilmShallow[];
@@ -11,15 +12,15 @@ interface GenreListProps {
 
 export const GenreList = (props: GenreListProps) => {
   const navigate = useNavigate();
-  const currentGenre = useAppSelector((state) => state.main.genre);
+  const currentGenre = useAppSelector(selectGenre);
   const dispatch = useAppDispatch();
   const films = props.films;
 
-  const uniqueGenres = useMemo(() => [DefaultFilmGenre, ...new Set(films.map((x) => x.genre))], [films]);
+  const uniqueGenres = useMemo(() => [DEFAULT_FILM_GENRE, ...new Set(films.map((x) => x.genre))].slice(0, 10), [films]);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    dispatch(changeGenre(searchParams.get('genre') || DefaultFilmGenre));
+    dispatch(changeGenre(searchParams.get('genre') || DEFAULT_FILM_GENRE));
   }, [dispatch, searchParams]);
 
   const onClickHandler = (genre: string) => {

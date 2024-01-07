@@ -4,10 +4,11 @@ import {Header} from '../../components/header/header';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {useEffect} from 'react';
 import {getFavoriteFilms} from '../../store/thunks.ts';
+import {selectFavoriteFilms, selectFavoriteFilmsCount} from '../../store/user/user-slice.selectors.ts';
 
 function MyListPage(): JSX.Element {
-  const favoriteFilms = useAppSelector((state) => state.user.favoriteFilms);
-  const favoriteFilmsCount = useAppSelector((state) => state.user.favoriteFilmsCount);
+  const favoriteFilms = useAppSelector(selectFavoriteFilms);
+  const favoriteFilmsCount = useAppSelector(selectFavoriteFilmsCount);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

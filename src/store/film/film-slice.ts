@@ -23,6 +23,9 @@ export const filmSlice = createSlice({
         state.isFilmLoading = false;
         state.film = action.payload;
       })
+      .addCase(getFilmById.rejected, (state) => {
+        state.isFilmLoading = false;
+      })
       .addCase(getComments.fulfilled, (state, action) => {
         state.filmComments = action.payload;
       })

@@ -1,5 +1,4 @@
 import {Link, useNavigate, useParams} from 'react-router-dom';
-import {AppRoute} from '../../const';
 import {FilmList} from '../../components/film-list/film-list';
 import {Footer} from '../../components/footer/footer';
 import {Header} from '../../components/header/header';
@@ -11,12 +10,15 @@ import {LoadingMessage} from '../../components/loading-messsage/loading-message.
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {useEffect} from 'react';
 import {getComments, getSimilarFilms} from '../../store/thunks.ts';
+import {selectIsAuthenticated} from '../../store/user/user-slice.selectors.ts';
+import {selectSimilarFilms} from '../../store/film/film-slice.selectors.ts';
+import {AppRoute} from '../../types/enums.ts';
 
 function FilmPage(): JSX.Element {
-  const { film, isFilmLoading } = useFilm();
+  const { film } = useFilm();
 
-  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
-  const similarFilms = useAppSelector((state) => state.film.similarFilms);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const similarFilms = useAppSelector(selectSimilarFilms);
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -28,7 +30,7 @@ function FilmPage(): JSX.Element {
     }
   }, [navigate, dispatch, id, film]);
 
-  if (isFilmLoading || film === null) {
+  if (film === null) {
     return <LoadingMessage/>;
   }
 
@@ -55,7 +57,7 @@ function FilmPage(): JSX.Element {
               <div className="film-card__buttons">
                 <PlayButton id={film.id}/>
                 <MyListButton film={film}/>
-                {isAuthenticated && <Link to={`${AppRoute.Films}/${film.id}/reviews`} className="btn film-card__button">Add review</Link>}
+                {isAuthenticated && <Link to={`${AppRoute.Films}/${film.id}/${AppRoute.Review}`} className="btn film-card__button">Add review</Link>}
               </div>
             </div>
           </div>
@@ -71,6 +73,7 @@ function FilmPage(): JSX.Element {
           showGenres={false}
           showTitle
           showMore={false}
+          limit={4}
           className={'catalog catalog--like-this'}
         />
 

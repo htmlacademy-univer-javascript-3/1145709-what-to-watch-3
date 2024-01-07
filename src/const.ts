@@ -1,39 +1,7 @@
-import {Film} from './types/film';
+export const DEFAULT_FILM_GENRE = 'All genres';
 
-export enum AuthorizationStatus {
-  Auth= 'AUTH',
-  NoAuth = 'NO_AUTH',
-}
+export const BACKEND_URL = 'https://13.design.pages.academy/wtw';
+export const REQUEST_TIMEOUT = 5000;
 
-export enum AppRoute {
-  Root = '/',
-  SignIn = '/login',
-  MyList = '/mylist',
-  Films = '/films',
-  Review = 'review',
-  Player = '/player',
-  NotFound = '/404'
-}
-
-export enum DescriptionType {
-  Overview = 'overview',
-  Details = 'details',
-  Reviews = 'reviews'
-}
-
-export interface CommonDescriptionProps {
-  film: Film;
-}
-
-export const DefaultFilmGenre = 'All genres';
-export const DefaultMoreCounterValue = 8;
-
-export enum APIRoute {
-  Films = '/films',
-  Favorite = '/favorite',
-  FilmsSimilar = '/similar',
-  Login = '/login',
-  Logout = '/logout',
-  Comments = '/comments',
-  Promo = '/promo',
-}
+export const TOKEN_KEY = 'token';
+export const DEFAULT_MORE_COUNTER_VALUE = 8;

@@ -2,12 +2,12 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {MainState} from '../../types/state.ts';
 import {getAllFilms, getPromoFilm} from '../thunks.ts';
-import {DefaultFilmGenre} from '../../const.ts';
+import {DEFAULT_FILM_GENRE} from '../../const.ts';
 
 const initialState: MainState = {
   films: [],
   isFilmListLoading: true,
-  genre: DefaultFilmGenre,
+  genre: DEFAULT_FILM_GENRE,
   promoFilm: null,
 };
 
@@ -24,15 +24,14 @@ export const mainSlice = createSlice({
       .addCase(getAllFilms.pending, (state) => {
         state.isFilmListLoading = true;
       })
-      .addCase(getPromoFilm.pending, (state) => {
-        state.isFilmListLoading = true;
-      })
       .addCase(getAllFilms.fulfilled, (state, action) => {
         state.isFilmListLoading = false;
         state.films = action.payload;
       })
-      .addCase(getPromoFilm.fulfilled, (state, action) => {
+      .addCase(getAllFilms.rejected, (state) => {
         state.isFilmListLoading = false;
+      })
+      .addCase(getPromoFilm.fulfilled, (state, action) => {
         state.promoFilm = action.payload;
       });
   }});

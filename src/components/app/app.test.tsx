@@ -4,10 +4,11 @@ import App from './app';
 
 import {comments} from '../../mocks/comments';
 import {makeFakeStore, withHistory, withStore} from '../../utils/mock-component.tsx';
-import {AuthorizationStatus, DefaultFilmGenre} from '../../const.ts';
+import {DEFAULT_FILM_GENRE} from '../../const.ts';
 import {authData} from '../../mocks/auth-data.ts';
 import {similarFilms} from '../../mocks/similar-films.ts';
 import {film} from '../../mocks/film.ts';
+import {AuthorizationStatus} from '../../types/enums.ts';
 
 describe('Application Routing', () => {
   let mockHistory: MemoryHistory;
@@ -23,7 +24,7 @@ describe('Application Routing', () => {
         isFilmListLoading: false,
         films: [],
         promoFilm: film,
-        genre: DefaultFilmGenre,
+        genre: DEFAULT_FILM_GENRE,
       }
     }));
     mockHistory.push('/');

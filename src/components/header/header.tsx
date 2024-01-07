@@ -1,9 +1,10 @@
-import {AppRoute} from '../../const';
 import {Link, useNavigate} from 'react-router-dom';
 import {Film} from '../../types/film';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {logout} from '../../store/thunks.ts';
 import {PropsWithChildren} from 'react';
+import {selectAuthData, selectIsAuthenticated} from '../../store/user/user-slice.selectors.ts';
+import {AppRoute} from '../../types/enums.ts';
 
 interface HeaderProps {
   showBreadcrumbs?: boolean;
@@ -13,8 +14,8 @@ interface HeaderProps {
 
 export const Header = (props: PropsWithChildren<HeaderProps>) => {
   const {showBreadcrumbs = false, film} = props;
-  const isAuth = useAppSelector((state) => state.user.isAuthenticated);
-  const authData = useAppSelector((state) => state.user.authData);
+  const isAuth = useAppSelector(selectIsAuthenticated);
+  const authData = useAppSelector(selectAuthData);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const headerClasses = props.headerClassName;

@@ -1,7 +1,6 @@
 import {createMemoryHistory, MemoryHistory} from 'history';
 import {makeFakeStore, withHistory, withStore} from '../../utils/mock-component.tsx';
 import {render, screen} from '@testing-library/react';
-import {APIRoute, AppRoute, AuthorizationStatus} from '../../const.ts';
 import {authData} from '../../mocks/auth-data.ts';
 import userEvent from '@testing-library/user-event';
 import {extractActionsTypes} from '../../utils/mocks.ts';
@@ -10,6 +9,7 @@ import AddReviewForm from './add-review-form.tsx';
 import {film} from '../../mocks/film.ts';
 import {Route, Routes} from 'react-router-dom';
 import {comments} from '../../mocks/comments.ts';
+import {APIRoute, AppRoute, AuthorizationStatus} from '../../types/enums.ts';
 
 describe('Component: AddReviewForm', () => {
   let mockHistory: MemoryHistory;
@@ -59,7 +59,7 @@ describe('Component: AddReviewForm', () => {
 
     await userEvent.type(
       screen.getByTestId('review-text'),
-      'Text text lol olo',
+      'Text'.repeat(50),
     );
 
     await userEvent.click(
