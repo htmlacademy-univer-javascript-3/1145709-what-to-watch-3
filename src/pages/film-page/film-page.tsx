@@ -11,12 +11,14 @@ import {LoadingMessage} from '../../components/loading-messsage/loading-message.
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {useEffect} from 'react';
 import {getComments, getSimilarFilms} from '../../store/thunks.ts';
+import {selectIsAuthenticated} from '../../store/user/user-slice.selectors.ts';
+import {selectSimilarFilms} from '../../store/film/film-slice.selectors.ts';
 
 function FilmPage(): JSX.Element {
   const { film } = useFilm();
 
-  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
-  const similarFilms = useAppSelector((state) => state.film.similarFilms);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const similarFilms = useAppSelector(selectSimilarFilms);
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const navigate = useNavigate();

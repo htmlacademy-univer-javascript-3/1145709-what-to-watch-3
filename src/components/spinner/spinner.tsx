@@ -1,9 +1,9 @@
 import {TailSpin} from 'react-loader-spinner';
 import {useAppSelector} from '../../hooks/redux-typed-hooks.ts';
-import {StoreSchema} from '../../types/state.ts';
+import {selectLoadingStatus} from '../../store/selectors.ts';
 
 function Spinner() {
-  const loading = useAppSelector((state: StoreSchema) => state.user.isAuthLoading || state.main.isFilmListLoading || state.film.isFilmLoading);
+  const loading = useAppSelector(selectLoadingStatus);
 
   return loading ? (
     <div data-testid="spinner">

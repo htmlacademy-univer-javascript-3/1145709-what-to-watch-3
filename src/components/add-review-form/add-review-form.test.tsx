@@ -59,7 +59,7 @@ describe('Component: AddReviewForm', () => {
 
     await userEvent.type(
       screen.getByTestId('review-text'),
-      'Text text lol olo',
+      'Text'.repeat(50),
     );
 
     await userEvent.click(

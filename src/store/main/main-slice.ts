@@ -28,6 +28,9 @@ export const mainSlice = createSlice({
         state.isFilmListLoading = false;
         state.films = action.payload;
       })
+      .addCase(getAllFilms.rejected, (state) => {
+        state.isFilmListLoading = false;
+      })
       .addCase(getPromoFilm.fulfilled, (state, action) => {
         state.promoFilm = action.payload;
       });

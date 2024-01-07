@@ -3,10 +3,11 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import {getFilmById} from '../store/thunks.ts';
 import {AppRoute} from '../const.ts';
+import {selectFilm, selectIsFilmLoading} from '../store/film/film-slice.selectors.ts';
 
 export const useFilm = () => {
-  const film = useAppSelector((state) => state.film.film);
-  const isFilmLoading = useAppSelector((state) => state.film.isFilmLoading);
+  const film = useAppSelector(selectFilm);
+  const isFilmLoading = useAppSelector(selectIsFilmLoading);
 
   const dispatch = useAppDispatch();
   const {id} = useParams();

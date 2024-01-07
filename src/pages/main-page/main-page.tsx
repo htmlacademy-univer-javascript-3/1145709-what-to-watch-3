@@ -5,10 +5,11 @@ import {useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import MyListButton from '../../components/my-list-button/my-list-button.tsx';
 import {PlayButton} from '../../components/play-button/play-button.tsx';
 import {LoadingMessage} from '../../components/loading-messsage/loading-message.tsx';
+import {selectFilms, selectPromoFilm} from '../../store/main/main-slice.selectors.ts';
 
 function MainPage(): JSX.Element {
-  const promoFilm = useAppSelector((state) => state.main.promoFilm);
-  const films = useAppSelector((state) => state.main.films);
+  const promoFilm = useAppSelector(selectPromoFilm);
+  const films = useAppSelector(selectFilms);
 
   if (promoFilm === null){
     return <LoadingMessage/>;

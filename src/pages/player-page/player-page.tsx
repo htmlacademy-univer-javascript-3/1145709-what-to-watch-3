@@ -114,10 +114,10 @@ function PlayerPage(): JSX.Element {
 
             <div className="player__controls-row">
               <button type="button" className="player__play" onClick={() => setIsPlaying(!isPlaying)}>
-                <svg viewBox="0 0 19 19" width="19" height="19">
+                <svg viewBox="0 0 19 19" width="19" height="19" data-testid='play'>
                   {isPlaying ? <use xlinkHref="#pause" ></use> : <use xlinkHref="#play-s"></use>}
                 </svg>
-                <span data-testid='play'>{isPlaying ? 'Pause' : 'Play'}</span>
+                <span>{isPlaying ? 'Pause' : 'Play'}</span>
               </button>
               <div className="player__name" onMouseMove={handleMouseMoveEvent}>{film.name}</div>
 

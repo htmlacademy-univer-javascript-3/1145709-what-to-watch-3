@@ -6,6 +6,8 @@ import {decrementFavoriteFilmsCount, incrementFavoriteFilmsCount} from '../../st
 import {changeFavoriteFilms, getPromoFilm} from '../../store/thunks.ts';
 import {useNavigate} from 'react-router-dom';
 import {APIRoute} from '../../const.ts';
+import {selectFavoriteFilmsCount, selectIsAuthenticated} from '../../store/user/user-slice.selectors.ts';
+import {selectPromoFilm} from '../../store/main/main-slice.selectors.ts';
 
 interface MyListButton {
   film: Film | FilmPromo;
@@ -13,9 +15,9 @@ interface MyListButton {
 const MyListButton = (props: MyListButton) => {
   const {film} = props;
   const [isFavorite, setIsFavorite] = useState(film.isFavorite ?? false);
-  const favoriteFilmsCount = useAppSelector((state) => state.user.favoriteFilmsCount);
-  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
-  const promoFilm = useAppSelector((state) => state.main.promoFilm);
+  const favoriteFilmsCount = useAppSelector(selectFavoriteFilmsCount);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const promoFilm = useAppSelector(selectPromoFilm);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

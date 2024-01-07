@@ -4,6 +4,7 @@ import {GenreList} from '../genre-list/genre-list.tsx';
 import {DefaultFilmGenre, DefaultMoreCounterValue} from '../../const.ts';
 import {FilmShallow} from '../../types/film-shallow.ts';
 import {useAppSelector} from '../../hooks/redux-typed-hooks.ts';
+import {selectGenre} from '../../store/main/main-slice.selectors.ts';
 
 
 interface FilmListProps {
@@ -29,7 +30,7 @@ export function FilmList(props: FilmListProps) {
   } = props;
   const [, setCurrentFilm] = useState({});
   const [moreCounter, setMoreCounter] = useState(DefaultMoreCounterValue);
-  const currentGenre = useAppSelector((state) => state.main.genre);
+  const currentGenre = useAppSelector(selectGenre);
   const filteredFilms = useMemo(() => films.filter((film) => film.genre === currentGenre || currentGenre === DefaultFilmGenre), [films, currentGenre]);
 
   useEffect(() => {

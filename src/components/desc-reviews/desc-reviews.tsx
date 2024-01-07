@@ -1,5 +1,6 @@
 import {FilmComment} from '../../types/film-comment.ts';
 import {useAppSelector} from '../../hooks/redux-typed-hooks.ts';
+import {selectFilmComments} from '../../store/film/film-slice.selectors.ts';
 
 export const ReviewComponent = ({review}: { review: FilmComment }) => (
   <div className="review">
@@ -17,7 +18,7 @@ export const ReviewComponent = ({review}: { review: FilmComment }) => (
 );
 
 export const DescReviews = () => {
-  const comments = useAppSelector((state) => state.film.filmComments);
+  const comments = useAppSelector(selectFilmComments);
   const orderedReviews = [...comments].sort((comment1, comment2) => comment2.rating - comment1.rating);
   const reviewsCount = comments.length;
 

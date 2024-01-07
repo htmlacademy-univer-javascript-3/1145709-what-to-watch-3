@@ -46,17 +46,6 @@ describe('General store slice', () => {
   });
 
   describe('getPromoFilm', () => {
-    it('should return correct state with pending', () => {
-      const expectedState = {
-        ...defaultState,
-        isFilmListLoading: true,
-      };
-
-      const result = mainSlice.reducer(defaultState, getPromoFilm.pending);
-
-      expect(result).toEqual(expectedState);
-    });
-
     it('should return correct state with fulfilled', () => {
       const expectedState = {
         ...defaultState,

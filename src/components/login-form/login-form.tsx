@@ -3,10 +3,11 @@ import {postLoginData} from '../../store/thunks.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {useNavigate} from 'react-router-dom';
 import {AppRoute} from '../../const.ts';
+import {selectIsAuthenticated} from '../../store/user/user-slice.selectors.ts';
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();
-  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({

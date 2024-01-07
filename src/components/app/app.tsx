@@ -13,10 +13,11 @@ import {useEffect} from 'react';
 import {getAllFilms, getFavoriteFilms, getLoginData, getPromoFilm} from '../../store/thunks.ts';
 import 'react-toastify/dist/ReactToastify.css';
 import {getToken} from '../../api/utils.ts';
+import {selectAuthorizationStatus, selectIsAuthenticated} from '../../store/user/user-slice.selectors.ts';
 
 function App(): JSX.Element {
-  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
-  const authStatus = useAppSelector((state) => state.user.authorizationStatus);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const authStatus = useAppSelector(selectAuthorizationStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
