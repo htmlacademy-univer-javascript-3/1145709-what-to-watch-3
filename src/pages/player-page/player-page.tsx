@@ -40,15 +40,16 @@ function PlayerPage(): JSX.Element {
     }
   };
 
-  useEffect(() => {
-    if (!isVideoLoading) {
+  const fullscreenCallback = (isLoading: boolean) => {
+    if (!isLoading) {
       if (isFullScreen) {
         videoRef.current?.requestFullscreen();
       } else {
         document.exitFullscreen();
       }
+      setIsFullScreen(!isFullScreen);
     }
-  }, [isFullScreen, isVideoLoading]);
+  };
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -92,7 +93,7 @@ function PlayerPage(): JSX.Element {
   return (
     <div>
       <div className="player" onMouseMove={handleMouseMoveEvent} onMouseUp={() => setIsToggleMouseDown(false)}>
-        <video ref={videoRef} src={film.videoLink} poster={film.backgroundImage} className="player__video" autoPlay
+        <video ref={videoRef} src={film.videoLink} poster={film.backgroundImage} className="player__video" autoPlay data-testid='player'
           onLoadedData={() => setIsVideoLoading(false)}
         >
         </video>
@@ -104,7 +105,7 @@ function PlayerPage(): JSX.Element {
             <div className="player__controls-row">
               <div className="player__time">
                 <progress ref={progressRef} className="player__progress" value={currentTime}
-                  max={videoRef.current?.duration}
+                  max={isNaN(videoRef.current?.duration as number) ? 100 : videoRef.current?.duration}
                 />
                 <div ref={togglerRef} className="player__toggler" onMouseDown={() => setIsToggleMouseDown(true)}
                   style={{left: getProgressValue(currentTime, videoRef.current?.duration)}}
@@ -117,13 +118,13 @@ function PlayerPage(): JSX.Element {
             <div className="player__controls-row">
               <button type="button" className="player__play" onClick={() => setIsPlaying(!isPlaying)}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
-                  {isPlaying ? <use xlinkHref="#pause"></use> : <use xlinkHref="#play-s"></use>}
+                  {isPlaying ? <use xlinkHref="#pause" ></use> : <use xlinkHref="#play-s"></use>}
                 </svg>
-                <span>Play</span>
+                <span data-testid='play'>Play</span>
               </button>
               <div className="player__name" onMouseMove={handleMouseMoveEvent}>{film.name}</div>
 
-              <button type="button" className="player__full-screen" onClick={() => setIsFullScreen(!isFullScreen)}>
+              <button type="button" className="player__full-screen" onClick={() => fullscreenCallback(isVideoLoading)}>
                 <svg viewBox="0 0 27 27" width="27" height="27">
                   <use xlinkHref="#full-screen"></use>
                 </svg>

@@ -39,7 +39,9 @@ function AddReviewForm(): JSX.Element {
             {Array.from(Array(10).keys()).map((rate) =>
               (
                 <React.Fragment key={rate}>
-                  <input className="rating__input" id={`star-${rate}`} type="radio" name="rating" value={rate} onChange={() => setCommentScore(10 - rate)}/>
+                  <input className="rating__input" id={`star-${rate}`} type="radio" name="rating" value={rate} data-testid={`rate-${rate}`}
+                    onChange={() => setCommentScore(10 - rate)}
+                  />
                   <label className="rating__label" htmlFor={`star-${rate}`}>Rating {rate}</label>
                 </React.Fragment>
               )
@@ -49,6 +51,7 @@ function AddReviewForm(): JSX.Element {
 
         <div className="add-review__text">
           <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"
+            data-testid="review-text"
             onChange={(event) => setCommentText(event.target.value)} value={commentText}
           />
           <div className="add-review__submit">

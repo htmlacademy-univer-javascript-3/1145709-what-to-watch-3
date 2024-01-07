@@ -60,7 +60,7 @@ function App(): JSX.Element {
           />
           <Route path={`${AppRoute.Films}/:id/`}>
             <Route index element={<FilmPage/>}/>
-            <Route path={AppRoute.Reviews} element={
+            <Route path={AppRoute.Review} element={
               <PrivateRoute authorizationStatus={authStatus}>
                 <AddReviewPage />
               </PrivateRoute>
