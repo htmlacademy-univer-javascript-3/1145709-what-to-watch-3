@@ -3,7 +3,7 @@ import {getToken, setToken} from './utils.ts';
 import {toast} from 'react-toastify';
 import {ErrorDetailsMessage} from '../types/response-error-type.ts';
 
-enum StatusCodes {
+export enum StatusCodes {
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   NOT_FOUND = 404,
@@ -32,10 +32,13 @@ export const ResponseInterceptor = (error: AxiosError<ErrorDetailsMessage>) => {
         progress: undefined,
         theme: 'light',
       });
-  }
 
-  if (error.response?.status === StatusCodes.UNAUTHORIZED) {
-    setToken('');
+
+    if (error.response?.status === StatusCodes.UNAUTHORIZED) {
+      setToken('');
+    }
+  } else {
+    toast.warn('server is not available');
   }
 
   throw error;
