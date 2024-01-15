@@ -7,7 +7,7 @@ export const DescOverview = (props: CommonDescriptionProps) => {
   return (
     <>
       <div className="film-rating">
-        <div className="film-rating__score" data-testid={'rating'}>{film.rating}</div>
+        <div className="film-rating__score" data-testid={'rating'}>{film.rating.toFixed(1)}</div>
         <p className="film-rating__meta">
           <span className="film-rating__level">{getDescriptionByRate(film.rating)}</span>
           <span className="film-rating__count" data-testid={'rating-count'}>{film.scoresCount} ratings</span>

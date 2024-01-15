@@ -2,6 +2,14 @@ import {FilmComment} from '../../types/film-comment.ts';
 import {useAppSelector} from '../../hooks/redux-typed-hooks.ts';
 import {selectFilmComments} from '../../store/film/film-slice.selectors.ts';
 
+function formatDate(date: Date) {
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  } as const;
+  return date.toLocaleDateString('en-US', options);
+}
 export const ReviewComponent = ({review}: { review: FilmComment }) => (
   <div className="review">
     <blockquote className="review__quote">
@@ -9,7 +17,7 @@ export const ReviewComponent = ({review}: { review: FilmComment }) => (
 
       <footer className="review__details">
         <cite className="review__author" data-testid={'user'}>{review.user}</cite>
-        <time className="review__date" dateTime="2016-12-24" data-testid={'date'}>{new Date(review.date).toDateString()}</time>
+        <time className="review__date" dateTime="2016-12-24" data-testid={'date'}>{formatDate(new Date(review.date))}</time>
       </footer>
     </blockquote>
 

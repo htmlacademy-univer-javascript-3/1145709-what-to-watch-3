@@ -13,6 +13,7 @@ function AddReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const {id} = useParams();
   const navigate = useNavigate();
+  const [blocked, setBlocked] = useState(false);
 
   useEffect(() => {
     setIsValid(commentScore !== undefined && commentText.length >= 50 && commentText.length <= 400);
@@ -22,18 +23,21 @@ function AddReviewForm(): JSX.Element {
     return <Navigate to={AppRoute.NotFound}/>;
   }
   const submitAction = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    dispatch(postComment({
-      id: id,
-      form: {
-        rating: commentScore ?? 10,
-        comment: commentText,
-      }
-    })).then((value) => {
-      if (!('error' in value)) {
-        navigate(`${AppRoute.Films}/${id}?tab=reviews`);
-      }
-    });
+    if (isValid) {
+      setBlocked(true);
+      evt.preventDefault();
+      dispatch(postComment({
+        id: id,
+        form: {
+          rating: commentScore ?? 10,
+          comment: commentText,
+        }
+      })).then((value) => {
+        if (!('error' in value)) {
+          navigate(`${AppRoute.Films}/${id}?tab=reviews`);
+        }
+      }).finally(() => setBlocked(false));
+    }
   };
 
   return (
@@ -57,10 +61,17 @@ function AddReviewForm(): JSX.Element {
         <div className="add-review__text">
           <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"
             data-testid="review-text"
-            onChange={(event) => setCommentText(event.target.value)} value={commentText}
+            onChange={(event) => {
+              if (blocked) {
+                return;
+              }
+
+              setCommentText(event.target.value);
+            }}
+            value={commentText}
           />
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit" disabled={!isValid}>Post</button>
+            <button className="add-review__btn" type="submit" disabled={!isValid || blocked}>Post</button>
           </div>
         </div>
       </form>
